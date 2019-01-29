@@ -1,10 +1,13 @@
-import sys
+import sys, os
 import argparse
 from yolo import YOLO, detect_video
 from PIL import Image
+import readline
+readline.parse_and_bind("tab: complete")
 
 def detect_img(yolo):
-    while True:
+    img = ''
+    while img != 'quit':
         img = input('Input image filename:')
         try:
             image = Image.open(img)
@@ -14,8 +17,25 @@ def detect_img(yolo):
         else:
             r_image = yolo.detect_image(image)
             r_image.show()
+            r_image.save(os.path.join('output', os.path.basename(img)))
     yolo.close_session()
 
+
+def detect_img_batch(yolo, batchfile):
+    with open(batchfile, 'r') as file:
+        file_list = [line.split(' ')[0] for line in file.read().splitlines()]
+    for img in file_list:
+        try:
+            image = Image.open(img)
+        except:
+            print('Open Error! Try again!')
+            continue
+        else:
+            r_image = yolo.detect_image(image)
+            r_image.show()
+            r_image.save(os.path.join('output', os.path.basename(img)))
+    yolo.close_session()
+                                                                
 FLAGS = None
 
 if __name__ == '__main__':
@@ -25,17 +45,17 @@ if __name__ == '__main__':
     Command line options
     '''
     parser.add_argument(
-        '--model', type=str,
+        '--model', type=str, dest='model_path',
         help='path to model weight file, default ' + YOLO.get_defaults("model_path")
     )
 
     parser.add_argument(
-        '--anchors', type=str,
+        '--anchors', type=str, dest='anchors_path',
         help='path to anchor definitions, default ' + YOLO.get_defaults("anchors_path")
     )
 
     parser.add_argument(
-        '--classes', type=str,
+        '--classes', type=str, dest='classes_path',
         help='path to class definitions, default ' + YOLO.get_defaults("classes_path")
     )
 
@@ -47,6 +67,10 @@ if __name__ == '__main__':
     parser.add_argument(
         '--image', default=False, action="store_true",
         help='Image detection mode, will ignore all positional arguments'
+    )
+    parser.add_argument(
+        '--batchfile', type=str,
+        help='Image detection mode for each file specified in input txt, will ignore all positional arguments'
     )
     '''
     Command line positional arguments -- for video detection mode
@@ -71,6 +95,10 @@ if __name__ == '__main__':
         if "input" in FLAGS:
             print(" Ignoring remaining command line arguments: " + FLAGS.input + "," + FLAGS.output)
         detect_img(YOLO(**vars(FLAGS)))
+    elif 'batchfile' in FLAGS:
+        print("Batch image detection mode: reading "+FLAGS.batchfile)
+        print(" Ignoring remaining command line arguments: " + FLAGS.input + "," + FLAGS.output)
+        detect_img_batch(YOLO(**vars(FLAGS)), FLAGS.batchfile)
     elif "input" in FLAGS:
         detect_video(YOLO(**vars(FLAGS)), FLAGS.input, FLAGS.output)
     else:

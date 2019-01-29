@@ -1,302 +1,302 @@
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5482249.jpg 420,465,492,530,4 443,195,576,300,2 417,15,595,67,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5482427.jpg 428,468,490,539,4 458,194,565,302,2 465,7,589,61,2 417,8,464,60,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5487037.jpg 654,29,719,82,4 453,25,511,81,4 364,177,418,224,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5488478.jpg 734,576,784,614,4 737,513,773,552,4 463,10,593,70,2 407,9,462,68,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5490456.jpg 433,130,471,170,4 114,125,327,330,2 125,46,301,93,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5494747.jpg 707,310,744,359,4 713,512,751,554,4 727,63,893,113,2 658,52,718,111,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5517820.jpg 463,12,565,40,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5518950.jpg 20,339,68,399,4 464,16,600,64,2 406,5,464,68,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5524117.jpg 509,6,634,60,2 448,7,508,66,2 176,188,494,520,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5531537.jpg 10,340,71,398,4 417,14,469,58,2 466,15,597,59,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5544138.jpg 423,470,492,535,4 464,15,592,66,2 418,17,468,58,2 453,196,559,297,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5553064.jpg 426,472,494,534,4 411,16,613,63,2 458,190,566,295,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5553085.jpg 22,339,68,399,4 410,10,603,62,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5554779.jpg 151,613,293,654,4 164,6,315,54,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5564471.jpg 370,216,464,254,4 334,208,372,260,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5578660.jpg 17,336,72,388,4 409,16,604,63,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5578662.jpg 17,341,78,388,4 408,7,604,62,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5580769.jpg 445,275,629,339,3 32,56,206,123,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5600250.jpg 24,53,199,128,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5604631.jpg 329,277,603,501,2 530,4,729,56,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5615817.jpg 14,29,193,91,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5617178.jpg 364,500,419,581,4 300,505,345,581,4 478,58,693,103,2 332,25,471,121,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5621081.jpg 15,22,198,105,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5621483.jpg 431,469,489,526,4 464,199,561,301,2 467,19,616,67,2 409,13,467,54,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5621773.jpg 17,329,79,403,4 417,4,603,65,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5624768.jpg 583,1319,880,1465,3 269,597,505,728,3 3,5,224,87,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5624769.jpg 1,1,223,97,3 614,1322,878,1481,3 244,592,512,728,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5627140.jpg 24,50,219,132,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5627268.jpg 415,5,607,68,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5629007.jpg 424,39,608,162,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5629047.jpg 17,25,198,98,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5629803.jpg 416,11,601,64,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5629804.jpg 415,7,598,66,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5629988.jpg 336,207,374,258,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5630184.jpg 330,265,373,305,4 416,165,606,227,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5630231.jpg 380,396,633,461,4 23,44,70,107,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5630431.jpg 102,182,376,457,2 1,10,70,68,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5631099.jpg 420,468,486,530,4 457,194,570,298,2 413,18,608,68,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5631426.jpg 708,111,827,151,4 210,47,361,108,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5679940.jpg 472,391,561,461,4 380,152,463,221,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5680824.jpg 10,7,150,62,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5680828.jpg 21,54,206,124,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5680840.jpg 26,46,208,137,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5681074.jpg 339,208,376,252,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5682991.jpg 21,1,215,83,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5684371.jpg 773,164,827,207,4 205,288,294,382,2 207,14,358,125,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5684954.jpg 335,217,375,255,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5685020.jpg 426,42,600,161,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5685882.jpg 23,339,72,401,4 462,17,597,61,2 411,13,464,61,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5687942.jpg 27,49,207,120,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5688784.jpg 23,48,72,100,4 384,391,631,462,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5688785.jpg 376,400,642,457,4 18,47,72,99,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5688941.jpg 307,268,401,331,2 162,3,313,58,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5689468.jpg 432,468,493,536,4 449,197,570,294,2 466,18,599,63,2 420,6,461,59,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5690032.jpg 532,318,581,381,4 1,1,66,62,2 98,126,413,461,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5690705.jpg 17,24,195,95,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5690706.jpg 17,24,197,97,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5691721.jpg 7,1,196,74,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5693773.jpg 18,53,217,117,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5694629.jpg 11,55,210,117,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5694684.jpg 393,399,642,460,4 21,51,74,96,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5694781.jpg 20,59,213,114,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5696126.jpg 21,13,221,75,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5698839.jpg 24,56,201,124,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5699717.jpg 779,542,872,573,4 333,286,589,501,2 539,1,728,51,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5702241.jpg 411,363,462,408,4 163,368,211,408,4 1,11,54,65,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5702242.jpg 164,366,210,405,4 411,362,459,408,4 1,7,41,68,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5703410.jpg 22,26,194,97,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5712410.jpg 268,1222,472,1335,3 602,1320,895,1483,3 241,586,515,730,3 1,1,230,98,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5716667.jpg 168,196,497,519,2 512,17,640,51,2 463,6,505,63,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5718732.jpg 695,320,752,376,4 229,215,493,518,2 153,3,230,78,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5719304.jpg 344,209,714,386,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5720168.jpg 426,16,595,79,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5720394.jpg 1,9,222,88,3 600,1329,906,1484,3 258,592,524,727,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5722266.jpg 15,48,70,100,4 394,399,643,463,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5722425.jpg 227,197,516,541,2 474,15,592,58,2 407,7,468,56,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5729346.jpg 330,217,462,256,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5732254.jpg 519,289,621,378,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5734477.jpg 20,54,233,131,3 447,275,628,345,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5734505.jpg 29,57,212,124,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5736136.jpg 431,464,493,534,4 409,10,596,63,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5738759.jpg 428,41,613,169,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5741362.jpg 17,322,88,395,4 403,8,593,58,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5749914.jpg 21,50,207,120,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5750604.jpg 167,18,317,60,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5751685.jpg 9,29,195,91,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5753890.jpg 430,34,608,165,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5757597.jpg 12,6,207,84,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5758836.jpg 9,27,190,98,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5760041.jpg 9,45,209,117,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5762858.jpg 18,52,203,125,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5765635.jpg 1,5,163,36,4 419,145,599,180,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5766353.jpg 695,331,840,378,4 158,5,385,55,2 243,224,484,509,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5767484.jpg 334,236,460,284,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5767806.jpg 17,20,231,92,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5769261.jpg 11,20,206,96,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5769816.jpg 9,10,179,46,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5772033.jpg 338,216,460,260,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5774864.jpg 496,626,575,674,3 172,519,242,571,3 10,17,195,105,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5774871.jpg 611,468,650,527,1 528,477,571,519,4 90,9,267,94,2 1,1,90,94,2 123,180,450,523,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5776602.jpg 430,41,601,167,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5779992.jpg 12,4,153,38,4 422,146,602,178,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5786979.jpg 423,470,488,541,4 460,188,560,297,2 462,14,605,62,2 412,9,462,63,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5789160.jpg 695,309,840,381,4 234,220,501,497,2 154,2,376,51,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5791804.jpg 149,3,332,83,2 647,223,773,332,2 70,3,154,95,2 175,199,433,477,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5798326.jpg 227,334,278,394,4 17,330,73,397,4 412,6,594,69,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5799206.jpg 157,366,205,405,4 413,362,463,404,4 1,17,148,75,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5800846.jpg 19,334,76,399,4 404,7,462,59,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5800872.jpg 169,20,219,52,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5802087.jpg 22,337,73,395,4 406,8,465,64,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5804415.jpg 230,341,421,400,4 20,343,67,398,4 410,13,468,67,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5806078.jpg 32,61,301,151,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5809539.jpg 623,105,685,156,4 215,300,293,373,2 207,5,352,119,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5812926.jpg 783,501,866,570,4 196,21,260,74,2 654,221,774,339,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5812927.jpg 783,501,866,569,4 627,211,777,335,2 206,32,260,71,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5816673.jpg 49,11,239,100,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5816675.jpg 11,1,220,90,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5821507.jpg 25,46,207,128,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5822036.jpg 28,1,160,89,2 646,207,763,326,2 174,192,436,481,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5827785.jpg 599,246,762,289,4 606,127,761,167,4 281,119,484,315,2 276,42,333,86,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5828447.jpg 754,157,859,221,4 205,297,288,378,2 208,7,361,120,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5829190.jpg 18,333,81,405,4 414,13,462,64,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5830056.jpg 19,340,84,402,4 417,11,464,60,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5837488.jpg 808,704,848,746,4 570,35,741,91,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5838669.jpg 428,44,696,103,4 338,25,416,111,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5839630.jpg 762,535,846,562,4 47,34,95,87,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5841201.jpg 24,336,71,415,4 405,9,467,63,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5842014.jpg 80,213,270,341,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5842051.jpg 413,34,613,161,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5842088.jpg 650,43,704,111,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5842089.jpg 648,53,699,108,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5842847.jpg 424,33,607,169,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5843028.jpg 507,160,632,202,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5843219.jpg 19,340,78,396,4 415,13,467,62,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5843560.jpg 806,705,928,745,4 566,32,749,95,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5843566.jpg 61,16,146,45,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5843638.jpg 647,58,703,104,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5843826.jpg 1,1,153,40,4 776,215,983,282,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5844817.jpg 374,42,642,122,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5845737.jpg 639,291,688,333,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5845933.jpg 410,84,617,127,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5846577.jpg 808,702,922,744,4 614,33,749,97,4 557,31,606,94,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5847424.jpg 26,347,80,402,4 417,12,465,57,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5847472.jpg 648,215,756,331,2 178,167,441,491,2 69,1,155,90,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5849229.jpg 568,31,746,94,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5849233.jpg 370,95,455,173,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5849336.jpg 367,106,455,167,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5849426.jpg 464,204,558,248,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5849428.jpg 369,111,453,163,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5850252.jpg 480,3,536,61,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5853382.jpg 400,37,607,167,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5859426.jpg 1,1,193,48,4 772,216,979,279,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5861283.jpg 425,45,602,157,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5861462.jpg 153,77,276,152,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5865325.jpg 91,288,248,430,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5869248.jpg 435,41,604,167,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5871227.jpg 441,87,591,228,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5872160.jpg 565,323,666,389,4 93,148,423,454,2 1,11,84,57,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5874468.jpg 809,701,932,747,4 558,32,743,92,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5875352.jpg 1,1,202,46,4 770,226,981,274,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5880562.jpg 628,222,771,313,2 167,182,449,496,2 65,1,156,90,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5880824.jpg 92,297,253,423,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5889297.jpg 453,10,568,43,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5890450.jpg 459,12,565,40,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5890465.jpg 457,9,570,41,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5890466.jpg 456,10,570,41,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5891066.jpg 570,396,642,413,1 52,9,196,47,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5891104.jpg 454,9,571,39,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5891136.jpg 456,4,565,43,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5892549.jpg 426,43,598,161,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5893013.jpg 547,174,733,217,1 196,166,268,232,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5893741.jpg 457,12,566,40,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5893764.jpg 430,553,506,590,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5893833.jpg 454,8,566,42,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5893923.jpg 319,15,467,43,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5894174.jpg 197,143,268,210,1 546,153,735,200,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5894899.jpg 453,11,568,40,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5894914.jpg 462,11,569,40,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5894915.jpg 458,6,569,40,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5895075.jpg 324,9,468,48,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5895647.jpg 454,11,565,42,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5895891.jpg 457,9,571,39,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5896554.jpg 621,341,686,398,4 826,332,893,403,4 439,1,624,63,2
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5897110.jpg 451,279,636,348,3 21,56,210,126,3
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5898270.jpg 464,10,570,44,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5899123.jpg 457,100,572,176,1 432,175,585,209,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5900558.jpg 460,11,570,39,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5900563.jpg 461,11,568,46,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5900566.jpg 462,8,564,38,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5902016.jpg 490,16,536,60,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5902421.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5902423.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5902432.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5902476.jpg 197,144,268,209,1 541,145,733,203,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5902510.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5902665.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5902682.jpg 457,5,569,39,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5903230.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5903237.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5903243.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5903354.jpg 460,9,567,40,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5903471.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5903497.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5903517.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5903723.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5904469.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5904711.jpg 330,11,467,50,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5904897.jpg 404,74,514,99,4 60,9,200,47,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5904994.jpg 717,3,812,30,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5905555.jpg 438,5,573,42,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5905565.jpg 434,96,508,161,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5905845.jpg 456,9,566,40,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5905846.jpg 456,9,566,43,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5905881.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5906817.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5906948.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5907020.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5907029.jpg 453,91,578,179,1 441,174,588,212,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5907086.jpg 458,9,570,41,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5907209.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5907227.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5907233.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5907267.jpg 15,22,199,80,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5907382.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5907564.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5907959.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5908081.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5908158.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5908196.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5908429.jpg 455,9,569,45,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5908520.jpg 107,11,337,70,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5908560.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5908568.jpg 321,16,469,45,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5908655.jpg 438,93,504,159,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909032.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909168.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909196.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909247.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909248.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909399.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909415.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909422.jpg 196,166,280,232,1 549,170,735,223,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909586.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909613.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909649.jpg 1,1,112,32,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909717.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909744.jpg 456,89,573,175,1 440,178,590,211,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909763.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909764.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909769.jpg 327,13,472,53,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909770.jpg 327,13,470,50,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909784.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5909851.jpg 456,6,569,39,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5910116.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5910216.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5910298.jpg 191,142,269,210,1 542,152,737,203,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5910392.jpg 324,11,469,49,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5910429.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5910448.jpg 438,91,506,162,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5910450.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5910454.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5910503.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5910506.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5910516.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5910517.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5910519.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5910714.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5910728.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5910788.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5910831.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5911109.jpg 457,8,571,43,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5911130.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5911284.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5911454.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5911510.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5911869.jpg 458,8,574,42,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5912039.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5912075.jpg 421,45,584,152,4
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5912095.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5912272.jpg 1,1,122,35,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5912326.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5912460.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5912493.jpg 326,12,467,49,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5912547.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5912596.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5912602.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5913790.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5913802.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5913803.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5914580.jpg 192,143,274,212,1 548,148,738,207,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5914713.jpg 449,86,571,180,1 449,174,587,209,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5915525.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5915576.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5915722.jpg 450,6,568,47,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5915723.jpg 189,159,274,230,1 542,165,734,227,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5915732.jpg 457,9,572,42,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5915807.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5915964.jpg 437,97,500,162,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5916107.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5916114.jpg 172,16,383,71,1
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5916474.jpg
-/Users/dio/insight/project-phishing/data_phishtank/annotated/5916939.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5904792.jpg 430,43,608,166,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5550838.jpg 435,467,494,534,4 458,193,568,292,2 414,7,598,63,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5526571.jpg 30,20,96,81,2 98,21,206,74,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5758822.jpg 444,265,636,345,3 18,55,202,115,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5812930.jpg 773,498,868,568,4 644,211,785,334,2 197,34,253,68,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5909853.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5828447.jpg 754,157,859,221,4 205,297,288,378,2 208,7,361,120,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5912547.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5909419.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5685707.jpg 422,39,602,168,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5902616.jpg 436,86,509,163,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5690867.jpg 13,21,199,98,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5906847.jpg 197,140,276,206,1 546,144,740,205,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5870580.jpg 25,29,224,93,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5692214.jpg 601,248,763,286,4 289,119,477,313,2 287,42,464,96,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5493830.jpg 574,478,617,516,4 358,466,424,527,4 451,186,566,295,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5628349.jpg 28,48,214,126,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5904611.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5844574.jpg 768,219,994,284,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5702242.jpg 164,366,210,405,4 411,362,459,408,4 1,7,41,68,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5498369.jpg 707,513,752,559,4 707,314,745,359,4 720,52,883,119,2 669,45,721,116,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5684954.jpg 335,217,375,255,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5889884.jpg 548,165,734,226,1 199,160,265,232,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5913844.jpg 323,9,471,47,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5849428.jpg 369,111,453,163,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5537561.jpg 429,471,492,537,4 451,191,559,299,2 462,13,604,58,2 412,12,461,63,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5753721.jpg 21,54,208,118,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5909769.jpg 327,13,472,53,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5699716.jpg 775,534,872,573,4 533,1,723,50,2 334,274,600,493,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910246.jpg 545,185,744,244,1 195,174,266,249,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5622207.jpg 392,51,599,128,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5822038.jpg 60,1,149,95,2 177,198,457,483,2 649,213,751,336,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5604631.jpg 329,277,603,501,2 530,4,729,56,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5493836.jpg 431,471,491,528,4 467,18,611,63,2 412,7,467,64,2 445,199,568,291,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5799887.jpg 31,22,95,84,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5907056.jpg 456,7,568,42,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5842051.jpg 413,34,613,161,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5745550.jpg 332,206,471,256,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5843566.jpg 61,16,146,45,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5891899.jpg 59,25,232,79,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5905555.jpg 438,5,573,42,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5756653.jpg 531,235,667,274,4 537,285,679,325,4 134,172,450,493,2 464,100,630,157,2 394,86,454,161,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5689467.jpg 430,469,493,536,4 464,13,619,63,2 406,6,466,59,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910519.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5916114.jpg 172,16,383,71,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5902510.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5838533.jpg 656,20,710,71,4 461,18,504,62,4 365,160,421,221,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5736136.jpg 431,464,493,534,4 409,10,596,63,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5745658.jpg 422,36,607,164,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5687941.jpg 21,56,203,120,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5891776.jpg 422,173,598,215,1 459,102,566,175,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5912493.jpg 326,12,467,49,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5703042.jpg 18,46,204,113,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5769908.jpg 651,13,715,77,4 458,18,498,71,4 371,168,530,214,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5907233.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5909590.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5915723.jpg 189,159,274,230,1 542,165,734,227,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910505.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5911284.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5911817.jpg 460,7,566,44,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5758836.jpg 9,27,190,98,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5892777.jpg 458,2,567,42,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5911139.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5908127.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5845737.jpg 639,291,688,333,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5916957.jpg 12,12,217,85,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5821498.jpg 22,49,213,134,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5891104.jpg 454,9,571,39,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5688941.jpg 307,268,401,331,2 162,3,313,58,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5524117.jpg 509,6,634,60,2 448,7,508,66,2 176,188,494,520,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5894915.jpg 458,6,569,40,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5908520.jpg 107,11,337,70,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5903363.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5679942.jpg 450,211,540,300,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5720394.jpg 1,9,222,88,3 600,1329,906,1484,3 258,592,524,727,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5690706.jpg 17,24,197,97,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5862685.jpg 428,44,599,166,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5690033.jpg 531,327,581,381,4 103,127,408,473,2 19,18,69,60,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5907086.jpg 458,9,570,41,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5917027.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5627269.jpg 418,7,602,71,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910262.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5722425.jpg 227,197,516,541,2 474,15,592,58,2 407,7,468,56,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5899603.jpg 460,11,567,42,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5781781.jpg 324,163,726,329,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5547805.jpg 24,39,247,113,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5916399.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5909253.jpg 428,44,600,156,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5680829.jpg 22,50,212,121,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5810155.jpg 430,467,490,534,4 458,199,564,291,2 414,1,467,59,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5912436.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5628930.jpg 14,22,206,93,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5865325.jpg 91,288,248,430,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5741362.jpg 17,322,88,395,4 403,8,593,58,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5698584.jpg 19,46,207,128,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5855767.jpg 1149,597,1283,645,4 908,101,1084,172,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5909310.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5797020.jpg 852,391,945,439,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5682474.jpg 662,30,706,68,4 456,24,500,69,4 367,171,528,227,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5916722.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5915808.jpg 327,7,471,47,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5873898.jpg 313,337,364,388,4 46,334,108,382,4 421,7,463,63,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5911509.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5656953.jpg 20,1,209,67,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5799886.jpg 29,21,99,79,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5895076.jpg 330,12,470,47,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5861283.jpg 425,45,602,157,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5912423.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5722266.jpg 15,48,70,100,4 394,399,643,463,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910789.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5677457.jpg 524,249,589,312,4 123,17,265,49,2 62,6,125,58,2 173,160,438,377,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5690194.jpg 11,155,295,443,2 492,184,595,298,2 34,8,155,96,2 155,21,342,90,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5502569.jpg 645,264,698,322,4 197,42,265,110,2 273,173,585,486,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5695293.jpg 20,46,88,78,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5777020.jpg 14,333,73,393,4 415,15,595,64,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5839630.jpg 762,535,846,562,4 47,34,95,87,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5690192.jpg 421,463,493,535,4 443,190,578,301,2 465,20,600,58,2 414,16,466,60,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5903243.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5874468.jpg 809,701,932,747,4 558,32,743,92,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5900569.jpg 439,93,501,161,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5913802.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5913845.jpg 324,10,471,47,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5905604.jpg 325,12,465,48,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5762858.jpg 18,52,203,125,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5889928.jpg 547,160,733,200,1 198,144,267,208,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5894993.jpg 12,23,206,79,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5900567.jpg 201,184,265,250,1 538,197,729,239,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5913050.jpg 380,48,636,121,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5903110.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5902424.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5871095.jpg 1,1,158,40,4 420,142,594,184,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910516.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5848342.jpg 157,71,264,147,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5544138.jpg 423,470,492,535,4 464,15,592,66,2 418,17,468,58,2 453,196,559,297,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5767484.jpg 334,236,460,284,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5692826.jpg 334,212,456,261,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5760043.jpg 10,45,217,121,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5734477.jpg 20,54,233,131,3 447,275,628,345,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5894987.jpg 458,6,566,44,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5687942.jpg 27,49,207,120,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5493831.jpg 364,468,416,533,4 574,479,617,516,4 467,196,568,295,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5915667.jpg 25,5,214,84,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5755891.jpg 9,24,205,70,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5694781.jpg 20,59,213,114,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5805809.jpg 25,338,84,410,4 418,9,466,65,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5630184.jpg 330,265,373,305,4 416,165,606,227,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5853393.jpg 418,42,604,167,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5904711.jpg 330,11,467,50,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5893018.jpg 422,228,515,251,4 565,223,709,293,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5912520.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5898015.jpg 11,84,138,135,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5899123.jpg 457,100,572,176,1 432,175,585,209,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910541.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5900562.jpg 452,11,570,39,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5913618.jpg 194,142,277,209,1 545,149,733,199,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5893797.jpg 461,10,573,42,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5578662.jpg 17,341,78,388,4 408,7,604,62,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5716667.jpg 168,196,497,519,2 512,17,640,51,2 463,6,505,63,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5908560.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5912040.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5597797.jpg 656,21,711,72,4 456,20,496,65,4 370,171,529,221,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5916956.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5600250.jpg 24,53,199,128,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5776602.jpg 430,41,601,167,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910517.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5911135.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5915738.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5779992.jpg 12,4,153,38,4 422,146,602,178,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5844817.jpg 374,42,642,122,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5902432.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5482251.jpg 428,468,492,530,4 458,194,567,294,2 464,15,598,59,2 415,8,463,59,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5909542.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5900558.jpg 460,11,570,39,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5896780.jpg 589,286,749,331,4 594,342,745,392,4 301,278,443,348,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5630230.jpg 23,44,75,106,4 390,395,626,459,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910831.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5751073.jpg 431,471,493,533,4 448,205,572,303,2 405,4,600,73,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5875352.jpg 1,1,202,46,4 770,226,981,274,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5903230.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5694632.jpg 18,43,207,123,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5753303.jpg 17,43,71,104,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910448.jpg 438,91,506,162,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5915647.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5889309.jpg 456,8,567,42,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5680828.jpg 21,54,206,124,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5693874.jpg 429,458,491,542,4 442,190,578,298,2 463,14,588,59,2 414,13,467,58,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5842014.jpg 80,213,270,341,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5694684.jpg 393,399,642,460,4 21,51,74,96,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5891136.jpg 456,4,565,43,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5490456.jpg 433,130,471,170,4 114,125,327,330,2 125,46,301,93,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5913791.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5591013.jpg 17,21,198,98,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910403.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5507750.jpg 772,162,838,206,4 218,303,284,381,2 212,17,355,119,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5914149.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5914580.jpg 192,143,274,212,1 548,148,738,207,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5756262.jpg 6,47,214,120,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5608268.jpg 348,275,585,487,2 529,2,729,53,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5909047.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5915152.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5909613.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5861024.jpg 509,157,643,202,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5774871.jpg 611,468,650,527,1 528,477,571,519,4 90,9,267,94,2 1,1,90,94,2 123,180,450,523,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5853307.jpg 1,1,145,39,4 411,137,582,170,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910117.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5763169.jpg 15,18,203,100,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5902563.jpg 465,14,566,45,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5904704.jpg 192,163,275,231,1 545,176,736,219,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5502568.jpg 653,258,698,322,4 276,165,583,495,2 197,48,251,102,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5878841.jpg 341,213,460,255,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5784570.jpg 14,46,233,131,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5607458.jpg 20,47,70,106,4 392,397,638,471,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5914537.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5911130.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5909770.jpg 327,13,470,50,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5903196.jpg 543,153,746,198,1 195,142,273,211,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5843221.jpg 601,189,769,260,4 469,188,552,225,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5692778.jpg 18,75,226,138,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5757597.jpg 12,6,207,84,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5738052.jpg 161,367,211,409,4 421,365,460,405,4 1,13,54,66,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5839749.jpg 418,37,616,164,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5841201.jpg 24,336,71,415,4 405,9,467,63,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5627140.jpg 24,50,219,132,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5718171.jpg 536,322,578,378,4 17,13,64,61,2 92,134,418,459,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5907959.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5621082.jpg 18,26,197,103,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910143.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910423.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5905608.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5913590.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910537.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5765042.jpg 545,351,666,409,4 64,23,205,58,2 13,11,69,67,2 82,150,391,484,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5769262.jpg 15,18,206,95,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5894988.jpg 459,9,566,44,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5854610.jpg 22,47,207,128,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5798326.jpg 227,334,278,394,4 17,330,73,397,4 412,6,594,69,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5808269.jpg 492,451,585,478,4 119,172,425,507,2 37,2,99,53,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5804415.jpg 230,341,421,400,4 20,343,67,398,4 410,13,468,67,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5732030.jpg 155,608,193,654,4 159,1,312,45,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5780087.jpg 111,188,381,454,2 1,1,60,73,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5894914.jpg 462,11,569,40,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5903497.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5916439.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910506.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5787245.jpg 163,366,207,409,4 414,365,465,404,4 1,12,133,63,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5755874.jpg 7,11,150,56,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5688785.jpg 376,400,642,457,4 18,47,72,99,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5722899.jpg 538,319,679,383,4 12,10,64,63,2 88,142,409,461,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5734475.jpg 439,261,637,343,3 14,52,207,128,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5899184.jpg 547,151,730,201,1 190,139,267,206,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5611758.jpg 28,54,203,125,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5772033.jpg 338,216,460,260,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5904297.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5685019.jpg 409,43,612,167,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5905557.jpg 189,165,271,233,1 547,174,733,225,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5915732.jpg 457,9,572,42,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5769816.jpg 9,10,179,46,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5872155.jpg 304,107,522,155,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5916027.jpg 193,163,266,232,1 545,164,740,224,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5895691.jpg 544,150,733,196,1 194,145,263,208,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5686825.jpg 186,188,462,477,2 637,220,756,327,2 58,6,344,86,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5908082.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5909784.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5881514.jpg 807,574,859,631,4 193,569,395,626,4 176,11,219,64,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5906947.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5531061.jpg 10,334,81,398,4 469,23,601,58,2 404,11,469,60,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5715429.jpg 913,221,1024,296,3 696,751,784,807,3 194,146,309,205,3 668,464,800,533,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5679337.jpg 21,45,210,141,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5712410.jpg 268,1222,472,1335,3 602,1320,895,1483,3 241,586,515,730,3 1,1,230,98,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5494747.jpg 707,310,744,359,4 713,512,751,554,4 727,63,893,113,2 658,52,718,111,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5905934.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5903046.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5843826.jpg 1,1,153,40,4 776,215,983,282,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5482249.jpg 420,465,492,530,4 443,195,576,300,2 417,15,595,67,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5892549.jpg 426,43,598,161,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5842411.jpg 103,198,251,335,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5750604.jpg 167,18,317,60,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5895679.jpg 320,219,357,279,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5892723.jpg 454,4,567,42,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5914531.jpg 452,5,569,43,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910261.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5629046.jpg 17,25,198,93,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5906067.jpg 453,9,566,43,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5907380.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910476.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910509.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5838668.jpg 425,34,677,106,4 339,27,427,110,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5629988.jpg 336,207,374,258,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5880824.jpg 92,297,253,423,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5871227.jpg 441,87,591,228,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5903355.jpg 456,9,567,43,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5838669.jpg 428,44,696,103,4 338,25,416,111,4
+/home/ubuntu/project-phishing/data_phishtank/annotated/5690032.jpg 532,318,581,381,4 1,1,66,62,2 98,126,413,461,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5689468.jpg 432,468,493,536,4 449,197,570,294,2 466,18,599,63,2 420,6,461,59,2
+/home/ubuntu/project-phishing/data_phishtank/annotated/5734509.jpg 437,273,639,343,3 18,49,230,131,3
+/home/ubuntu/project-phishing/data_phishtank/annotated/5902450.jpg 454,9,575,50,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5915963.jpg 440,93,500,160,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5908614.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910479.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5910453.jpg
+/home/ubuntu/project-phishing/data_phishtank/annotated/5894899.jpg 453,11,568,40,1
+/home/ubuntu/project-phishing/data_phishtank/annotated/5902476.jpg 197,144,268,209,1 541,145,733,203,1
