@@ -1,3 +1,3 @@
-[submodule "src/darknet"]
-	path = src/darknet
-	url = https://github.com/AlexeyAB/darknet
+[submodule "src/keras-yolo3"]
+	path = src/keras-yolo3
+	url = https://github.com/qqwweee/keras-yolo3
