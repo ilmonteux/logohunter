@@ -150,7 +150,7 @@ class YOLO(object):
             if top - label_size[1] >= 0:
                 text_origin = np.array([left, top - label_size[1]])
             else:
-                text_origin = np.array([left, top + 1])
+                text_origin = np.array([left, bottom])
 
             # My kingdom for a good redistributable image drawing library.
             for i in range(thickness):
