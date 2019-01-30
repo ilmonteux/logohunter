@@ -125,12 +125,12 @@ class YOLO(object):
             })
 
         print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
+        out_prediction = []
 
         font = ImageFont.truetype(font='font/FiraMono-Medium.otf',
                     size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
         thickness = (image.size[0] + image.size[1]) // 300
-        alpha_fill = 200 #
-
+        
         for i, c in reversed(list(enumerate(out_classes))):
             predicted_class = self.class_names[c]
             box = out_boxes[i]
@@ -147,6 +147,9 @@ class YOLO(object):
             right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
             print(label, (left, top), (right, bottom))
 
+            # output as class_index, confidence, xmin, ymin, xmax, ymax
+            out_prediction.append([c, left, top, right, bottom])
+
             if top - label_size[1] >= 0:
                 text_origin = np.array([left, top - label_size[1]])
             else:
@@ -159,13 +162,13 @@ class YOLO(object):
                     outline=self.colors[c])
             draw.rectangle(
                 [tuple(text_origin), tuple(text_origin + label_size)],
-                fill=self.colors[c]+(alpha_fill,))
+                fill=self.colors[c])
             draw.text(text_origin, label, fill=(0, 0, 0), font=font)
             del draw
 
         end = timer()
-        print(end - start)
-        return image
+        print('Time spent: {:.3f}sec'.format(end - start))
+        return out_prediction, image
 
     def close_session(self):
         self.sess.close()
@@ -190,7 +193,7 @@ def detect_video(yolo, video_path, output_path=""):
     while True:
         return_value, frame = vid.read()
         image = Image.fromarray(frame)
-        image = yolo.detect_image(image)
+        out_pred, image = yolo.detect_image(image)
         result = np.asarray(image)
         curr_time = timer()
         exec_time = curr_time - prev_time

@@ -6,18 +6,25 @@ import readline
 readline.parse_and_bind("tab: complete")
 
 def detect_img(yolo):
-    img = ''
-    while img != 'quit':
+    while True:
         img = input('Input image filename:')
+        if img == 'quit':
+            break
         try:
             image = Image.open(img)
         except:
             print('Open Error! Try again!')
             continue
         else:
-            r_image = yolo.detect_image(image)
+            prediction, r_image = yolo.detect_image(image)
             r_image.show()
             r_image.save(os.path.join('output', os.path.basename(img)))
+            
+            out_txtfile = os.path.join('output', os.path.splitext(os.path.basename(img))[0]+'.txt')
+            with open(out_txtfile,'w') as txtfile:
+                for pred in prediction:
+                    txtfile.write(' '.join([str(p) for p in pred]))
+                    txtfile.write('\n')                                                                                
     yolo.close_session()
 
 
@@ -31,9 +38,14 @@ def detect_img_batch(yolo, batchfile):
             print('Open Error! Try again!')
             continue
         else:
-            r_image = yolo.detect_image(image)
+            prediction, r_image = yolo.detect_image(image)
             r_image.show()
             r_image.save(os.path.join('output', os.path.basename(img)))
+            out_txtfile = os.path.join('output', os.path.splitext(os.path.basename(img))[0]+'.txt')
+            with open(out_txtfile,'w') as txtfile:
+                for pred in prediction:
+                    txtfile.write(' '.join([str(p) for p in pred]))
+                    txtfile.write('\n')                                                                                                   
     yolo.close_session()
                                                                 
 FLAGS = None
