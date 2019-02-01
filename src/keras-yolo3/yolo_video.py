@@ -6,48 +6,59 @@ import readline
 readline.parse_and_bind("tab: complete")
 
 def detect_img(yolo):
+    #img = '/home/ubuntu/project-phishing/data_litw/LogosInTheWild-v2/data_cleaned/voc_format/kraft/img000069.jpg'
     while True:
         img = input('Input image filename:')
-        if img == 'quit':
+        if img in ['q','quit']:
             break
         try:
             image = Image.open(img)
+            if image.mode != "RGB":
+                image = image.convert("RGB")
         except:
-            print('Open Error! Try again!')
+            print('File Open Error! Try again!')
             continue
         else:
             prediction, r_image = yolo.detect_image(image)
-            r_image.show()
+            # r_image.show()
             r_image.save(os.path.join('output', os.path.basename(img)))
-            
-            out_txtfile = os.path.join('output', os.path.splitext(os.path.basename(img))[0]+'.txt')
-            with open(out_txtfile,'w') as txtfile:
-                for pred in prediction:
-                    txtfile.write(' '.join([str(p) for p in pred]))
-                    txtfile.write('\n')                                                                                
+
+            # out_txtfile = os.path.join('output', os.path.splitext(os.path.basename(img))[0]+'.txt')
+            # with open(out_txtfile,'w') as txtfile:
+            #     for pred in prediction:
+            #         txtfile.write(' '.join([str(p) for p in pred]))
+            #         txtfile.write('\n')
+        # img = 'q'
     yolo.close_session()
 
 
 def detect_img_batch(yolo, batchfile):
     with open(batchfile, 'r') as file:
         file_list = [line.split(' ')[0] for line in file.read().splitlines()]
+    out_txtfile = os.path.join('output', 'data_pred.txt')
+    txtfile = open(out_txtfile,'w')
     for img in file_list:
         try:
             image = Image.open(img)
+            if image.mode != "RGB":
+                image = image.convert("RGB")
         except:
             print('Open Error! Try again!')
             continue
         else:
             prediction, r_image = yolo.detect_image(image)
-            r_image.show()
+
             r_image.save(os.path.join('output', os.path.basename(img)))
-            out_txtfile = os.path.join('output', os.path.splitext(os.path.basename(img))[0]+'.txt')
-            with open(out_txtfile,'w') as txtfile:
-                for pred in prediction:
-                    txtfile.write(' '.join([str(p) for p in pred]))
-                    txtfile.write('\n')                                                                                                   
+
+            txtfile.write(img+' ')
+
+            for pred in prediction:
+                txtfile.write(','.join([str(p) for p in pred]))
+                txtfile.write(' ')
+        txtfile.write('\n')
     yolo.close_session()
-                                                                
+    txtfile.close()
+
 FLAGS = None
 
 if __name__ == '__main__':
@@ -99,6 +110,8 @@ if __name__ == '__main__':
 
     FLAGS = parser.parse_args()
 
+    if not os.path.isdir('output'):
+        os.makedirs('output')
     if FLAGS.image:
         """
         Image detection mode, disregard any remaining command line arguments
