@@ -80,15 +80,18 @@ class YOLO(object):
         print('{} model, anchors, and classes loaded.'.format(model_path))
 
         # Generate colors for drawing bounding boxes.
-        hsv_tuples = [(x / len(self.class_names), 1., 1.)
-                      for x in range(len(self.class_names))]
-        self.colors = list(map(lambda x: colorsys.hsv_to_rgb(*x), hsv_tuples))
-        self.colors = list(
-            map(lambda x: (int(x[0] * 255), int(x[1] * 255), int(x[2] * 255)),
-                self.colors))
-        np.random.seed(10101)  # Fixed seed for consistent colors across runs.
-        np.random.shuffle(self.colors)  # Shuffle colors to decorrelate adjacent classes.
-        np.random.seed(None)  # Reset seed to default.
+        if len(self.class_names) == 1:
+            self.colors = ['GreenYellow']
+        else:
+            hsv_tuples = [(x / len(self.class_names), 1., 1.)
+                          for x in range(len(self.class_names))]
+            self.colors = list(map(lambda x: colorsys.hsv_to_rgb(*x), hsv_tuples))
+            self.colors = list(
+                map(lambda x: (int(x[0] * 255), int(x[1] * 255), int(x[2] * 255)),
+                    self.colors))
+            np.random.seed(10101)  # Fixed seed for consistent colors across runs.
+            np.random.shuffle(self.colors)  # Shuffle colors to decorrelate adjacent classes.
+            np.random.seed(None)  # Reset seed to default.
 
         # Generate output tensor targets for filtered bounding boxes.
         self.input_image_shape = K.placeholder(shape=(2, ))
@@ -130,7 +133,7 @@ class YOLO(object):
         font = ImageFont.truetype(font='font/FiraMono-Medium.otf',
                     size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
         thickness = (image.size[0] + image.size[1]) // 300
-        
+
         for i, c in reversed(list(enumerate(out_classes))):
             predicted_class = self.class_names[c]
             box = out_boxes[i]
@@ -147,8 +150,8 @@ class YOLO(object):
             right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
             print(label, (left, top), (right, bottom))
 
-            # output as class_index, confidence, xmin, ymin, xmax, ymax
-            out_prediction.append([c, left, top, right, bottom])
+            # output as xmin, ymin, xmax, ymax, class_index, confidence
+            out_prediction.append([left, top, right, bottom, c, score])
 
             if top - label_size[1] >= 0:
                 text_origin = np.array([left, top - label_size[1]])
@@ -163,6 +166,7 @@ class YOLO(object):
             draw.rectangle(
                 [tuple(text_origin), tuple(text_origin + label_size)],
                 fill=self.colors[c])
+
             draw.text(text_origin, label, fill=(0, 0, 0), font=font)
             del draw
 
@@ -213,4 +217,3 @@ def detect_video(yolo, video_path, output_path=""):
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     yolo.close_session()
-
