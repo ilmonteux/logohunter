@@ -2,8 +2,9 @@ import numpy as np
 import os
 import argparse
 import readline
-import matplotlib.pyplot as plt
 readline.parse_and_bind("tab: complete")
+
+import matplotlib.pyplot as plt
 
 
 def read_txt_file(filename):
