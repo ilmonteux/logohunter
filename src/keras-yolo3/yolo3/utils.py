@@ -102,6 +102,18 @@ def get_random_data(annotation_line, input_shape, random=True, max_boxes=20, jit
     x[x<0] = 0
     image_data = hsv_to_rgb(x) # numpy array, 0 to 1
 
+    # make gray
+    gray = rand() < .2
+    if gray:
+        image_gray = np.dot(image_data, [0.299, 0.587, 0.114])
+        # a gray RGB image is GGG
+        image_data = np.moveaxis(np.stack([image_gray, image_gray, image_gray]),0,-1)
+
+    # invert colors
+    invert = rand()< .1
+    if invert:
+        image_data = 1. - image_data
+
     # correct boxes
     box_data = np.zeros((max_boxes,5))
     if len(box)>0:
