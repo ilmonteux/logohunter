@@ -15,16 +15,16 @@ from yolo3.utils import get_random_data
 
 def _main():
     annotation_path = 'data_train.txt'
-    log_dir = 'logs/001/'
-    classes_path = 'my_classes.txt'
+    log_dir = 'logs/003/'
+    classes_path = 'data_classes.txt'
     # anchors_path = 'model_data/yolo-tiny_anchors.txt'
     anchors_path = 'model_data/yolo_anchors.txt'
     class_names = get_classes(classes_path)
     num_classes = len(class_names)
     anchors = get_anchors(anchors_path)
 
-    input_shape = (416,416) # multiple of 32, hw
-    epoch1, epoch2 = 20, 20
+    input_shape = (416, 416) # multiple of 32, hw
+    epoch1, epoch2 = 40, 40
 
     is_tiny_version = (len(anchors)==6) # default setting
     if is_tiny_version:
