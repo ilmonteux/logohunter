@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
 from utils import chunks
+from timeit import default_timer as timer
 
 
 def features_from_image(img_array, model, preprocess, batch_size = 100):
@@ -16,6 +17,8 @@ def features_from_image(img_array, model, preprocess, batch_size = 100):
     Returns:
       (N, F) array of 1D features
     """
+    if len(img_array) == 0:
+        return np.array([])
 
     steps = len(img_array)//batch_size + 1
     img_gen = chunks(img_array, batch_size, preprocessing_function = preprocess)
@@ -42,6 +45,7 @@ def similarity_cutoff(feat_input, features, threshold=0.95):
       cutoff_list: list of cutoffs for each input
     """
 
+    start = timer()
     cs = cosine_similarity(X = feat_input, Y = features)
     cutoff_list = []
     # assume only one input? otherwise list
@@ -49,6 +53,8 @@ def similarity_cutoff(feat_input, features, threshold=0.95):
         hist, bins = np.histogram(cs1, bins=np.arange(0,1,0.001))
         cutoff = bins[np.where(np.cumsum(hist)< threshold*len(cs1))][-1]
         cutoff_list.append(cutoff)
+    end = timer()
+    print('Computed similarity cutoffs given inputs {:.2f}'.format(end - start))
 
     return cutoff_list
 
@@ -66,7 +72,8 @@ def similar_matches(feat_input, features_cand, cutoff_list):
       cc: (n_input, n_candidates) cosine similarity matrix between inputs and candidates
 
     """
-
+    if len(features_cand)==0:
+        return np.array([]), np.array([])
     assert feat_input.shape[1] == features_cand.shape[1], 'matrices should have same columns'
     cc = cosine_similarity(X = feat_input, Y = features_cand)
     cc = np.round(cc, 3)

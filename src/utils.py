@@ -110,3 +110,62 @@ def load_features(filename):
     print('Loaded {} features from {} in {:.2f}sec'.format(features.shape, filename, end-start))
 
     return brand_map, features
+
+def save_features(filename, features, brand_map):
+    """
+    Save features to compressed HDF5 file for later use
+    """
+
+    print('Saving {} features into {}... '.format(features.shape, filename), end='')
+    features = features.astype(np.float16)
+    start = timer()
+    with h5py.File(filename, 'w') as hf:
+        hf.create_dataset('features', data = features, compression='lzf')
+        hf.create_dataset('brand_map', data = brand_map)
+
+    end = timer()
+    print('done in {:.2f}sec'.format(end-start))
+
+    return None
+
+
+def draw_matches(img_test, inputs, prediction, matches, save_img = True, save_img_path='output'):
+    """
+    Draw bounding boxes on image for logo candidates that match against user input.
+
+    Args:
+      img_test: input image
+      inputs: list of annotations strings that will appear on top of each box
+      prediction: logo candidates from YOLO step
+      matches: array of prediction indices, prediction[matches[i]]
+    Returns:
+
+    """
+    if len(prediction)==0:
+        return img_test
+
+    # flip colors to keepm up with opencv BGR convention
+    colors = bbox_colors(len(inputs))[:,::-1]
+
+    # for each input, look for matches and draw them on the image
+    for i in range(len(inputs)):
+        match_bbox_list = np.array(prediction)[matches[i]].astype(int)
+        # print('{} target: {} matches above similarity threshold {:.2f}'.format(inputs[i], len(match_bbox_list), sim_cutoff[i]))
+        for bb in match_bbox_list:
+
+            # print('{} {} - Similarity score: {:.2f} '.format(tuple(bb[:2]), tuple(bb[2:4]), cc[i,matches[i]][0,0]))
+
+            # CV2 type mismatch if I put list(colors[i].astype(int)):  TypeError: Scalar value for argument 'color' is not numeric
+            cv2.rectangle(img_test, tuple(bb[:2]), tuple(bb[2:4]), [int(c) for c in colors[i]], thickness=6)
+
+    return img_test
+
+
+
+def main():
+    print('FILL ME')
+
+
+
+if __name__ == '__main__':
+    main()
