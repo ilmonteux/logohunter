@@ -132,8 +132,9 @@ class YOLO(object):
         print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
         out_prediction = []
 
-        # font = ImageFont.truetype(font='font/FiraMono-Medium.otf',
-        #             size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
+        font_path = os.path.join(os.path.dirname(__file__),'font/FiraMono-Medium.otf')
+        font = ImageFont.truetype(font=font_path,
+                    size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
         thickness = (image.size[0] + image.size[1]) // 300
 
         for i, c in reversed(list(enumerate(out_classes))):
@@ -143,8 +144,7 @@ class YOLO(object):
 
             label = '{} {:.2f}'.format(predicted_class, score)
             draw = ImageDraw.Draw(image)
-            # label_size = draw.textsize(label, font)
-            label_size = (10,10)
+            label_size = draw.textsize(label, font)
 
             top, left, bottom, right = box
             top = max(0, np.floor(top + 0.5).astype('int32'))
@@ -177,7 +177,7 @@ class YOLO(object):
                 [tuple(text_origin), tuple(text_origin + label_size)],
                 fill=self.colors[c])
 
-            # draw.text(text_origin, label, fill=(0, 0, 0), font=font)
+            draw.text(text_origin, label, fill=(0, 0, 0), font=font)
             del draw
 
         end = timer()
