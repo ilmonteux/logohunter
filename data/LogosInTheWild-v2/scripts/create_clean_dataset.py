@@ -67,8 +67,7 @@ if __name__ == '__main__':
     imageCounter = 0
     totalRoiCounter = 0
     print('Processing dataset files')
-    for subdir_counter, (r, subdirs, files) in enumerate(os.walk(xmlpath)):
-        subdirs.sort(key=str.casefold)
+    for r, subdirs, files in os.walk(xmlpath):
         for filename in files:
             i = i + 1
             if not filename.endswith('.xml'):
@@ -78,23 +77,12 @@ if __name__ == '__main__':
             imagename = filename.split('.')[0]
             imgpath = os.path.join(r, imagename + ext)
             filewithpath = os.path.join(r, filename)
-            # test that image is actual image (sometimes 404 HTMLs downloaded as images)
-            im = cv2.imread(os.path.join(r, imagename + ext))
-            if (not os.path.isfile(imgpath)) or (im is None):
+            if not os.path.isfile(imgpath):
                 os.remove(filewithpath)
                 unavailableCounter += 1
                 print('Deleted xml for unavailable image file {:s}'.format(imgpath))
                 continue
             imageCounter += 1
-
-            # make filenames unique: append directory index to filename. First xml file, then image
-            new_imagename = imagename+'_'+str(subdir_counter)
-            os.rename(os.path.join(r,filename), os.path.join(r,new_imagename+'.xml'))
-            filename = new_imagename + '.xml'
-            filewithpath = os.path.join(r, filename)
-            os.rename(os.path.join(r,imagename + ext), os.path.join(r,new_imagename+ext))
-            imagename = new_imagename
-
             try:
                 parent = filewithpath.split('/')[-2]
             except IndexError:
@@ -106,15 +94,12 @@ if __name__ == '__main__':
 
             imglist += parent + imagename + postfix + '\n'
             roiCounter = 0
-            # print(r+'/'+imagename + ext)
-            # im = cv2.imread(os.path.join(r, imagename + ext))
-            # assert im is not None
+            im = cv2.imread(os.path.join(r, imagename + ext))
+            assert im is not None
             imagebrands = []
             intersection = False
             for obj in root.findall('object'):
                 brand = obj.find('name').text.encode('utf-8').lower()
-                brand = brand.decode('utf-8')
-                #brand = str(brand)
                 if brand == "1.fcköln":
                     brand = "fckoeln"
                 if brand == "adidas3":
@@ -550,7 +535,7 @@ if __name__ == '__main__':
                     if not os.path.exists(folder):
                         os.makedirs(folder)
                     cv2.imwrite(os.path.join(folder, roiname + '.jpg'), roi)
-                roiCounter += 1
+                roiCounter += 1                
                 totalRoiCounter += 1
 
             tree.write(filewithpath, encoding="UTF-8")
@@ -559,23 +544,23 @@ if __name__ == '__main__':
                 continue
             roiCounter = 0
             for obj in root.findall('object'):
-
+                                
                 labelBrand = obj.find('name').text.encode('utf-8').lower()
                 if labelBrand == 'copy of amcrest-logo':
-                    continue
-
+                    continue                
+                
                 brand = imagebrands[roiCounter]
                 roiCounter += 1
-
+                
                 bndbox = obj.find('bndbox')
                 x1 = int(bndbox[0].text)
                 y1 = int(bndbox[1].text)
                 x2 = int(bndbox[2].text)
                 y2 = int(bndbox[3].text)
-
+                
                 brandlist.append(brand)
 
-                if args.commonformat:
+                if args.commonformat:                
                     with open(os.path.join(annotationspath, parent + "_" + imagename + postfix + dstext + '.bboxes.txt'), 'a') as annotfile:
                         annotfile.write(str(x1) + ' ' + str(y1) + ' ' + str(x2) + ' ' + str(y2) + ' ' + brand + '\n')
             if args.commonformat:
@@ -589,7 +574,6 @@ if __name__ == '__main__':
         for brand in set(brandlist):
             f.write(brand + '\n')
 
-    print('Processed folders: {:d}'.format(subdir_counter))
     print('Processed rois: {:d}'.format(totalRoiCounter))
     print('Processed images: {:d}'.format(imageCounter))
     print('Processed brands: {:d}'.format(len(set(brandlist))))
