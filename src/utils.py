@@ -162,8 +162,8 @@ def draw_annotated_box(image, box_list_list, label_list, color_list):
 
             # if score is also passed, append to label
             if len(box)>4:
-                label = '{} {:.2f}'.format(label, box[-1])
-            label_size = draw.textsize(label, font)
+                thelabel = '{} {:.2f}'.format(label, box[-1])
+            label_size = draw.textsize(thelabel, font)
 
             xmin, ymin, xmax, ymax = box[:4]
             ymin = max(0, np.floor(ymin + 0.5).astype('int32'))
@@ -180,7 +180,7 @@ def draw_annotated_box(image, box_list_list, label_list, color_list):
             for i in range(thickness):
                 draw.rectangle([xmin + i, ymin + i, xmax - i, ymax - i], outline=color)
             draw.rectangle([tuple(text_origin), tuple(text_origin + label_size)], fill = color)
-            draw.text(text_origin, label, fill=(0, 0, 0), font=font)
+            draw.text(text_origin, thelabel, fill=(0, 0, 0), font=font)
 
     del draw
 

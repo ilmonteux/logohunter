@@ -18,7 +18,7 @@ def features_from_image(img_array, model, preprocess, batch_size = 100):
     Returns:
       (N, F) array of 1D features
     """
-    
+
     if len(img_array) == 0:
         return np.array([])
 
@@ -50,17 +50,20 @@ def similarity_cutoff(feat_input, features, threshold=0.95):
     start = timer()
     cs = cosine_similarity(X = feat_input, Y = features)
     cutoff_list = []
-    # assume only one input? otherwise list
+    cdf_list = []
+
     for i, cs1 in enumerate(cs):
         hist, bins = np.histogram(cs1, bins=np.arange(0,1,0.001))
-        cutoff = bins[np.where(np.cumsum(hist)< threshold*len(cs1))][-1]
+        cdf = np.cumsum(hist)/len(cs1)
+        cutoff = bins[np.where(cdf < threshold)][-1]
         cutoff_list.append(cutoff)
+        cdf_list.append(cdf)
     end = timer()
-    print('Computed similarity cutoffs given inputs {:.2f}'.format(end - start))
+    print('Computed similarity cutoffs given inputs in {:.2f}sec'.format(end - start))
 
-    return cutoff_list
+    return cutoff_list, (bins, cdf_list)
 
-def similar_matches(feat_input, features_cand, cutoff_list):
+def similar_matches(feat_input, features_cand, cutoff_list, bins, cdf_list):
     """
     Given features of inputs to check candidates against, compute cosine
     similarity and define a match if cosine similarity is above a cutoff.
@@ -86,15 +89,31 @@ def similar_matches(feat_input, features_cand, cutoff_list):
     # similarity cutoffs are defined 3 significant digits, approximate cos_sim for consistency
     cos_sim = np.round(cos_sim, 3)
 
-    # for each input, return matches if
-    match_indices = []
+    # for each input, return matches if above threshold
+    # matches = []
+    matches = {}
     for i in range(len(feat_input)):
         # matches = [ c for c in range(len(features_cand)) if cc[i] > cutoff_list[i]]
         # alternatively in numpy, get indices of
-        matches = np.where(cos_sim[i] >= cutoff_list[i])
-        match_indices.append(matches)
+        match_indices = np.where(cos_sim[i] >= cutoff_list[i])
 
-    return match_indices, cos_sim
+        # to avoid double positives if candidate is above threshold for multiple inputs,
+        # will pick input with better cosine_similarity, meaning the one at the highest percentile
+        for idx in match_indices[0]:
+            cdf_match = cdf_list[i][bins[:-1] < cos_sim[i, idx]][-1]
+            # if candidate not seen previously, current brand is best guess so far
+            if idx not in matches:
+                matches[idx] = (i, cdf_match)
+            # if previously seen at lower confidence, replace with current candidate
+            elif matches[idx][1] < cdf_match:
+                matches[idx] = (i, cdf_match)
+            else:
+                continue
+
+    n_classes = len(np.unique([v[0] for v in matches.values()]))
+    print('Found {} logos from {} classes'.format(len(matches), n_classes))
+
+    return matches, cos_sim
 
 def draw_matches(img_test, inputs, prediction, matches):
     """
@@ -121,10 +140,12 @@ def draw_matches(img_test, inputs, prediction, matches):
 
     # for each input, look for matches and draw them on the image
     match_bbox_list_list = []
+
     for i in range(len(inputs)):
         match_bbox_list_list.append([])
-        for match in matches[i][0]:
-            match_bbox_list_list[i].append(prediction[match])
+        for i_cand, (i_match, cdf) in matches.items():
+            if i==i_match:
+                match_bbox_list_list[i].append(prediction[i_cand])
 
         # print('{} target: {} matches found'.format(inputs[i], len(match_bbox_list_list[i]) ))
 

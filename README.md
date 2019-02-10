@@ -19,95 +19,59 @@ In this project, I built a general-purpose logo detection API. To avoid re-train
 
 ## Getting Started
 
-#### Data
-This project uses the [Logos In The Wild dataset](https://www.iosb.fraunhofer.de/servlet/is/78045/) which can be requested via email directly from the authors of the paper, [https://arxiv.org/abs/1710.10891](arXiv:1710.10891). This dataset includes 11,054 images with 32,850 bounding boxes for a total of 871 brands.
-
-The dataset is licensed under the CC-by-SA 4.0 license. The images themselves were crawled from Google Images and are property of their respective copyright owners. For legal reasons, we do not provide the raw images: while this project would fall in the "fair use" category, any commercial application would likely need to generate their own dataset.
-
 #### Requisites
+The code uses python 3.6, Keras with Tensorflow backend, and a conda environment to keep everything together. Training was performed on a AWS p2.xlarge instance (Tesla K80 GPU).
 
 #### Installation
+Clone this repo with:
+```
+git clone https://github.com/ilmonteux/logohunter.git
+```
 
-## Usage
+Download the pre-trained model weights and the LogosInTheWild features extracted from a pre-trained InceptionV3 network:
+```
+LINK-TO-WEIGHTS ----------------------->>>>>>
 
-## Build Environment
+
+```
 
 #### clone, setup conda environment
 
-#### Optional: download, process and clean dataset
-After contacting the authors of [https://arxiv.org/abs/1710.10891](arXiv:1710.10891) you will receive the download link to the [Logos In The Wild Dataset](https://www.iosb.fraunhofer.de/servlet/is/78045/), which is a zip file. Place it in the `data/` directory, unzip it and your directory tree should be the following
+Simply setup the conda environment with
 ```
-REPO
-├── src/
-│   
-├── data/
-     ├── LogosInTheWild-v2.zip
-     └── LogosInTheWild-v2/
-            ├── data/
-            │     ├── 0samples/
-            │     ├── abus/
-            │     ├── accenture/
-            │     ├── adidas/
-            │     ....
-            │
-            ├── licence.txt
-            ├── Readme.txt
-            └── scripts/
+conda config --env --add channels conda-forge
+conda create --name logohunter --file requirements.txt
+source activate logohunter
 ```
-Each directory contains a `urls.txt` file with links to the images themselves, and one XML file with object annotations for each link (some of the URLs are no longer online since the dataset was created).
 
-To download the images and clean up the dataset run the following:
+## Usage
+The script doing the work is [logohunter.py](src/logohunter.py) in the `src/` directory.
 ```
 cd src/
-# download images from their respective URLs
-python fetch_LogosInTheWild.py  --path ../data/LogosInTheWild-v2/
-# clean dataset and generate cutouts of each annotated brand
-python create_clean_dataset.py  --in ../data/LogosInTheWild-v2/data/ --out ../data/LogosInTheWild-v2/data_cleaned --roi
-# read XML annotations and transfer to a text file in the keras-yolo3 format
-python litw_annotation.py --in ../data/LogosInTheWild-v2/data_cleaned/voc_format
+python logohunter.py --test
 ```
-The resulting folder structure is:
 
-```
-── LogosInTheWild-v2/
-       ├── data/
-       │     ├── 0samples/
-       │     ├── abus/
-       │     ....
-       │
-       ├── data_cleaned/
-       │     ├── brandROIs/
-       │         ├── 1fcköln/
-       │         ├── 24fitness/
-       │         ....
-       │     │
-       │     ├── brands.txt
-       │     └── voc_format/
-       │         ├── 0samples/
-       │         ├── abus/
-       │         ....
-       │
-       ├── licence.txt
-       ├── Readme.txt
-       └── scripts/
-```
-The images and XML annotations have been copied to `data_cleaned/voc_format/`. The file `brands.txt` contains a list of all 788 brands and brand variants present in the annotations (for example, the PUMA symbol vs the PUMA text logo count as different logos). The `--roi` option in the second command extracts the logos from each image and saves them into the `data_cleaned/brandROIs/` directory.
+## Build Environment
 
-Finally, the last command reads the XML files and generates  `data_train.txt` and `data_test.txt` files, with on each line the path to the images and the bounding box specification for each object in the image:
-```
-path-to-file1.jpg xmin,ymin,xmax,ymax,class_id xmin,ymin,xmax,ymax,class_id
-path-to-file2.jpg xmin,ymin,xmax,ymax,class_id
-```
-By default, `class_id=0` for all logos, as we train the network to learn all possible logos.
+
+#### Data
+This project uses the [Logos In The Wild dataset](https://www.iosb.fraunhofer.de/servlet/is/78045/) which can be requested via email directly from the authors of the paper, [arXiv:1710.10891](https://arxiv.org/abs/1710.10891). This dataset includes 11,054 images with 32,850 bounding boxes for a total of 871 brands.
+
+The dataset is licensed under the CC-by-SA 4.0 license. The images themselves were crawled from Google Images and are property of their respective copyright owners. For legal reasons, we do not provide the raw images: while this project would fall in the "fair use" category, any commercial application would likely need to generate their own dataset. See below for downloading the dataset.
+
+#### Optional: download, process and clean dataset
+
+Follow the directions in [data/](data/README) to download the Logos In The Wild dataset.
 
 #### Optional: train object detection model
-After the previous steps, the `data_train.txt` and `data_test.txt` files have all the info necessary to train the model. To train the model, we follow the instructions of the [keras-yolo3](https://github.com/qqwweee/keras-yolo3) package: first we download pre-trained YOLO weights from the YOLO official website, and then we convert them to the HDF5 format used by keras.
+After the previous step, the `data_train.txt` and `data_test.txt` files have all the info necessary to train the model. We then follow the instructions of the [keras-yolo3](https://github.com/qqwweee/keras-yolo3) repo: first we download pre-trained YOLO weights from the YOLO official website, and then we convert them to the HDF5 format used by keras.
 ```
+cd src/keras_yolo3
 wget https://pjreddie.com/media/files/yolov3.weights
 python convert.py yolov3.cfg yolov3.weights model_data/yolo.h5
 ```
-Training detail such as paths to train/text files, log directory, number of epochs, learning rates and so on are specified in `train.py`.
+Training detail such as paths to train/text files, log directory, number of epochs, learning rates and so on are specified in `train.py`. The training is performed in two runs, first with all the layers except the last three frozen, and then with all layers trainable.
+
 ```
 python train.py
 ```
-The training is performed in two runs, first with all the layers except the last three frozen, and then with all layers trainable.
