@@ -1,8 +1,10 @@
 import cv2
 import numpy as np
+import os
 from matplotlib.colors import rgb_to_hsv, hsv_to_rgb
 import h5py
 import colorsys
+from PIL import Image, ImageFont, ImageDraw
 
 from timeit import default_timer as timer
 
@@ -19,7 +21,7 @@ def bbox_colors(n):
 
 def contents_of_bbox(img, bbox_list, expand=1.):
     """
-    Extract portions of image inside one of the bounding boxes list.
+    Extract portions of image inside  bounding boxes list.
 
     Args:
       img: 3D image array
@@ -117,6 +119,7 @@ def save_features(filename, features, brand_map):
     """
 
     print('Saving {} features into {}... '.format(features.shape, filename), end='')
+    # reduce file size by saving as float16
     features = features.astype(np.float16)
     start = timer()
     with h5py.File(filename, 'w') as hf:
@@ -128,37 +131,60 @@ def save_features(filename, features, brand_map):
 
     return None
 
-
-def draw_matches(img_test, inputs, prediction, matches, save_img = True, save_img_path='output'):
+def draw_annotated_box(image, box_list_list, label_list, color_list):
     """
-    Draw bounding boxes on image for logo candidates that match against user input.
+    Draw box and overhead label on image.
 
     Args:
-      img_test: input image
-      inputs: list of annotations strings that will appear on top of each box
-      prediction: logo candidates from YOLO step
-      matches: array of prediction indices, prediction[matches[i]]
+      image: PIL image object
+      box_list_list: list of lists of bounding boxes, one for each label, each box in
+        (xmin, ymin, xmax, ymax [, score]) format (where score is an optional float)
+      label_list: list of  string to go above box
+      color_list: list of RGB tuples
     Returns:
-
+      image: annotated PIL image object
     """
-    if len(prediction)==0:
-        return img_test
 
-    # flip colors to keepm up with opencv BGR convention
-    colors = bbox_colors(len(inputs))[:,::-1]
+    font_path = os.path.join(os.path.dirname(__file__), 'keras_yolo3/font/FiraMono-Medium.otf')
 
-    # for each input, look for matches and draw them on the image
-    for i in range(len(inputs)):
-        match_bbox_list = np.array(prediction)[matches[i]].astype(int)
-        # print('{} target: {} matches above similarity threshold {:.2f}'.format(inputs[i], len(match_bbox_list), sim_cutoff[i]))
-        for bb in match_bbox_list:
+    font = ImageFont.truetype(font = font_path, size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
+    thickness = (image.size[0] + image.size[1]) // 300
 
-            # print('{} {} - Similarity score: {:.2f} '.format(tuple(bb[:2]), tuple(bb[2:4]), cc[i,matches[i]][0,0]))
+    draw = ImageDraw.Draw(image)
 
-            # CV2 type mismatch if I put list(colors[i].astype(int)):  TypeError: Scalar value for argument 'color' is not numeric
-            cv2.rectangle(img_test, tuple(bb[:2]), tuple(bb[2:4]), [int(c) for c in colors[i]], thickness=6)
+    for box_list, label, color in zip(box_list_list, label_list, color_list):
+        if not isinstance(color, tuple):
+            color = tuple(color)
+        for box in box_list:
+            # deal with empty predictions
+            if len(box)<4:
+                continue
 
-    return img_test
+            # if score is also passed, append to label
+            if len(box)>4:
+                label = '{} {:.2f}'.format(label, box[-1])
+            label_size = draw.textsize(label, font)
+
+            xmin, ymin, xmax, ymax = box[:4]
+            ymin = max(0, np.floor(ymin + 0.5).astype('int32'))
+            xmin = max(0, np.floor(xmin + 0.5).astype('int32'))
+            ymax = min(image.size[1], np.floor(ymax + 0.5).astype('int32'))
+            xmax = min(image.size[0], np.floor(xmax + 0.5).astype('int32'))
+
+            if ymin - label_size[1] >= 0:
+                text_origin = np.array([xmin, ymin - label_size[1]])
+            else:
+                text_origin = np.array([xmin, ymax])
+
+
+            for i in range(thickness):
+                draw.rectangle([xmin + i, ymin + i, xmax - i, ymax - i], outline=color)
+            draw.rectangle([tuple(text_origin), tuple(text_origin + label_size)], fill = color)
+            draw.text(text_origin, label, fill=(0, 0, 0), font=font)
+
+    del draw
+
+    return image
 
 
 
