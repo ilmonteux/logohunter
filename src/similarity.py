@@ -132,7 +132,8 @@ def similar_matches(feat_input, features_cand, cutoff_list, bins, cdf_list):
     """
 
     if len(features_cand)==0:
-        return np.array([]), np.array([])
+        print('Found 0 logos from 0 classes')
+        return {}, np.array([])
 
     assert feat_input.shape[1] == features_cand.shape[1], 'matrices should have same columns'
     assert len(cutoff_list) == len(feat_input), 'there should be one similarity cutoff for each input logo'

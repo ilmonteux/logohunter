@@ -18,10 +18,10 @@ from similarity import features_from_image, similarity_cutoff, load_brands_compu
 from timeit import default_timer as timer
 
 input_shape = (299,299,3)
-sim_threshold = 0.95
-save_img_logo, save_img_match = True, True
+sim_threshold = 0.95 
 
-def detect_logo(yolo, img_path, save_img = save_img_logo, save_img_path='./', postfix=''):
+
+def detect_logo(yolo, img_path, save_img, save_img_path='./', postfix=''):
     """
     Call YOLO logo detector on input image, optionally save resulting image.
 
@@ -49,7 +49,7 @@ def detect_logo(yolo, img_path, save_img = save_img_logo, save_img_path='./', po
     return prediction, r_image
 
 def match_logo(img_path, prediction, model_preproc, input_features_cdf_cutoff_labels,
-               save_img = save_img_match, save_img_path='./', timing=False):
+               save_img, save_img_path='./', timing=False):
 
     start = timer()
     model, my_preprocess = model_preproc
@@ -62,7 +62,7 @@ def match_logo(img_path, prediction, model_preproc, input_features_cdf_cutoff_la
     t_feat = timer()-start
     matches, cos_sim = similar_matches(feat_input, features_cand, sim_cutoff, bins, cdf_list)
     t_match = timer()-start
-
+    
     outtxt = img_path
     for idx in matches:
         bb = prediction[idx]
@@ -88,7 +88,7 @@ def match_logo(img_path, prediction, model_preproc, input_features_cdf_cutoff_la
 def test():
     yolo = YOLO(**{"model_path": 'keras_yolo3/yolo_weights_logos.h5',
                 "anchors_path": 'keras_yolo3/model_data/yolo_anchors.txt',
-                "classes_path": 'keras_yolo3/data_classes.txt',
+                "classes_path": 'data_classes.txt',
                 "score" : 0.1,
                 "gpu_num" : 1,
                 "model_image_size" : (416, 416),
@@ -125,7 +125,7 @@ def test():
     for i, img_path in enumerate(images_path):
 
         ## find candidate logos in image
-        prediction, r_image = detect_logo(yolo, img_path, save_img = save_img_logo,
+        prediction, r_image = detect_logo(yolo, img_path, save_img = True,
                                           save_img_path = test_dir, postfix='_logo')
 
         ## match candidate logos to input
@@ -198,6 +198,11 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
+        "--no_save_img", default=False, action="store_true",
+        help = "do not save output images with annotated boxes"
+    )
+
+    parser.add_argument(
         '--yolo_model', type=str, dest='model_path', default = 'keras_yolo3/yolo_weights_logos.h5',
         help='path to YOLO model weight file'
     )
@@ -208,7 +213,7 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        '--classes', type=str, dest='classes_path', default = 'keras_yolo3/data_classes.txt',
+        '--classes', type=str, dest='classes_path', default = 'data_classes.txt',
         help='path to YOLO class specifications'
     )
 
@@ -237,8 +242,10 @@ if __name__ == '__main__':
     if FLAGS.test:
         test()
         exit()
-    save_to_txt = FLAGS.outtxt
-    output_txt = os.path.abspath(os.path.join(FLAGS.output, 'out.txt'))
+    
+    
+    save_img_logo, save_img_match = not FLAGS.no_save_img, not FLAGS.no_save_img
+
     if FLAGS.image:
         """
         Image detection mode, either prompt user input or was passed as argument
@@ -261,12 +268,12 @@ if __name__ == '__main__':
 
         if FLAGS.batch and FLAGS.input_images.endswith('.txt'):
             print("Batch image detection mode: reading "+FLAGS.input_images)
+            output_txt = FLAGS.input_images.split('.txt')[0]+'_pred.txt'
+            save_to_txt = True
             with open(FLAGS.input_images, 'r') as file:
                 file_list = [line.split(' ')[0] for line in file.read().splitlines()]
             FLAGS.input_images = [os.path.abspath(f) for f in file_list]
 
-            output_txt = FLAGS.input_images.split('.txt')+'_pred.txt'
-            save_to_txt = True
 
         elif FLAGS.input_images == 'input':
             print('Input images to be scanned for logos: (file-by-file or entire directory)')

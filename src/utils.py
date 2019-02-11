@@ -11,6 +11,9 @@ from timeit import default_timer as timer
 import readline
 readline.parse_and_bind("tab: complete")
 
+
+min_logo_size = (10,10)
+
 def parse_input():
     """
     Ask user input for input images: pass path to individual images, directory
@@ -83,10 +86,17 @@ def contents_of_bbox(img, bbox_list, expand=1.):
 
     candidates =[]
     for xmin, ymin, xmax, ymax, *_ in bbox_list:
+        
+        # for very low confidence sometimes logos found outside of the image
+        if ymin > img.shape[0] or xmin > img.shape[1]:
+            continue
 
         xmin, ymin = int(xmin//expand), int(ymin//expand)
         xmax, ymax = int(np.round(xmax//expand)), int(np.round(ymax//expand))
-        candidates.append(img[ymin:ymax, xmin:xmax])
+        
+        # do not even consider tiny logos
+        if xmax-xmin > min_logo_size[1] and ymax-ymin > min_logo_size[0]:
+            candidates.append(img[ymin:ymax, xmin:xmax])
 
     return candidates
 
