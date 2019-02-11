@@ -77,6 +77,8 @@ def contents_of_bbox(img, bbox_list, expand=1.):
       img: 3D image array
       bbox_list: list of bounding box specifications, with first 4 elements
       specifying box corners in (xmin, ymin, xmax, ymax) format.
+    Returns:
+      candidates: list of 3D image arrays
     """
 
     candidates =[]
@@ -86,7 +88,7 @@ def contents_of_bbox(img, bbox_list, expand=1.):
         xmax, ymax = int(np.round(xmax//expand)), int(np.round(ymax//expand))
         candidates.append(img[ymin:ymax, xmin:xmax])
 
-    return np.array(candidates)
+    return candidates
 
 
 def pad_image(img, shape, mode = 'constant_mean'):

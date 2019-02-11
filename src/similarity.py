@@ -33,7 +33,7 @@ def features_from_image(img_array, model, preprocess, batch_size = 100):
     features = features.reshape(features.shape[0], np.prod(features.shape[1:]))
     return features
 
-def similarity_cutoff(feat_input, features, threshold=0.95):
+def similarity_cutoff(feat_input, features, threshold=0.95, timing=False):
     """
     Given list of input feature and feature database, compute distribution of
     cosine similarityof the database with respect to each input. Find similarity
@@ -51,9 +51,9 @@ def similarity_cutoff(feat_input, features, threshold=0.95):
 
     start = timer()
     cs = cosine_similarity(X = feat_input, Y = features)
+
     cutoff_list = []
     cdf_list = []
-
     for i, cs1 in enumerate(cs):
         hist, bins = np.histogram(cs1, bins=np.arange(0,1,0.001))
         cdf = np.cumsum(hist)/len(cs1)
@@ -66,7 +66,7 @@ def similarity_cutoff(feat_input, features, threshold=0.95):
     return cutoff_list, (bins, cdf_list)
 
 
-def load_brands_compute_cutoffs(input_paths, model_preproc, features, threshold = 0.95):
+def load_brands_compute_cutoffs(input_paths, model_preproc, features, threshold = 0.95, timing=False):
     """
     Given paths to input brand images, this is a wrapper to features_from_image()
     and similarity_cutoff().
@@ -85,6 +85,7 @@ def load_brands_compute_cutoffs(input_paths, model_preproc, features, threshold 
         for similarity of the logo database against each input.
     """
 
+    start = timer()
     img_input = []
     for path in input_paths:
         img = cv2.imread(path)
@@ -93,10 +94,19 @@ def load_brands_compute_cutoffs(input_paths, model_preproc, features, threshold 
         else:
             print(path)
 
+    t_read  = timer()-start
     model, my_preprocess = model_preproc
     feat_input = features_from_image(np.array(img_input), model, my_preprocess)
+    t_feat = timer()-start
 
-    sim_cutoff, (bins, cdf_list)= similarity_cutoff(feat_input, features, threshold)
+    sim_cutoff, (bins, cdf_list)= similarity_cutoff(feat_input, features, threshold, timing)
+    t_sim_cut = timer()-start
+
+    if timing:
+        print('Time spent in each section:')
+        print('-reading images: {:.2f}sec\n-features: {:.2f}sec\n-cosine similarity: {:.2f}sec'.format(
+          t_read, t_feat-t_read, t_sim_cut-t_feat
+          ))
 
     print('Resulting 95% similarity threshold for targets:')
     for path, cutoff in zip(input_paths, sim_cutoff):

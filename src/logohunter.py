@@ -2,6 +2,7 @@
 # MASTER SCRIPT TO DETECT LOGOS IN IMAGE AND FIND MATCHES
 # for each image find and pass logos, compute features, see if logo passes cutoff, save image
 #
+import matplotlib.pyplot as plt
 
 import sys, os
 from PIL import Image
@@ -20,7 +21,7 @@ input_shape = (299,299,3)
 sim_threshold = 0.95
 save_img_logo, save_img_match = True, True
 
-def detect_logo(yolo, img_path, save_img = False, save_img_path='./', postfix=''):
+def detect_logo(yolo, img_path, save_img = save_img_logo, save_img_path='./', postfix=''):
     """
     Call YOLO logo detector on input image, optionally save resulting image.
 
@@ -48,14 +49,19 @@ def detect_logo(yolo, img_path, save_img = False, save_img_path='./', postfix=''
     return prediction, r_image
 
 def match_logo(img_path, prediction, model_preproc, input_features_cdf_cutoff_labels,
-               save_img = False, save_img_path='./'):
+               save_img = save_img_match, save_img_path='./', timing=False):
 
+    start = timer()
     model, my_preprocess = model_preproc
     feat_input, sim_cutoff, bins, cdf_list, input_labels = input_features_cdf_cutoff_labels
     img_test = cv2.imread(img_path)
+    t_read = timer()-start
     candidates = contents_of_bbox(img_test, prediction)
+    t_box = timer()-start
     features_cand = features_from_image(candidates, model, my_preprocess)
+    t_feat = timer()-start
     matches, cos_sim = similar_matches(feat_input, features_cand, sim_cutoff, bins, cdf_list)
+    t_match = timer()-start
 
     outtxt = img_path
     for idx in matches:
@@ -68,14 +74,26 @@ def match_logo(img_path, prediction, model_preproc, input_features_cdf_cutoff_la
     outtxt += '\n'
 
     new_img = draw_matches(img_test, input_labels, prediction, matches)
+    t_draw = timer()-start
+    if save_img == True:
+        save_img_path = os.path.abspath(save_img_path)
+        a = cv2.imwrite(os.path.join(save_img_path, os.path.basename(img_path)), new_img)
 
-    if save_img:
-        cv2.imwrite(os.path.join(save_img_path, os.path.basename(img_path)), new_img)
+    if timing:
+        return outtxt, (t_read, t_box-t_read, t_feat-t_box, t_match-t_feat, t_draw-t_match)
 
     return outtxt
 
 
 def test():
+    yolo = YOLO(**{"model_path": 'keras_yolo3/yolo_weights_logos.h5',
+                "anchors_path": 'keras_yolo3/model_data/yolo_anchors.txt',
+                "classes_path": 'keras_yolo3/data_classes.txt',
+                "score" : 0.1,
+                "gpu_num" : 1,
+                "model_image_size" : (416, 416),
+                }
+               )
 
     test_dir = os.path.join(os.path.dirname(__file__), os.path.pardir, 'data/test')
 
@@ -93,51 +111,47 @@ def test():
     input_labels = [ s.split('test_')[-1].split('.')[0] for s in input_paths]
     input_paths = [os.path.join(test_dir, 'test_brands/', p) for p in input_paths]
 
-    img_input = []
-    for path in input_paths:
-        img = cv2.imread(path)[:,:,::-1]
-        img_input.append(img)
-
-    feat_input = features_from_image(np.array(img_input), model, my_preprocess)
-    sim_cutoff, (bins, cdf_list) = similarity_cutoff(feat_input, features, threshold=0.95)
-
-    print('Resulting similarity threshold for targets:')
-    for path, cutoff in zip(input_labels, sim_cutoff):
-        print('    {}  {:.2f}'.format(path, cutoff))
+    # compute cosine similarity between input brand images and all LogosInTheWild logos
+    ( img_input, feat_input, sim_cutoff, (bins, cdf_list)
+    ) = load_brands_compute_cutoffs(input_paths, (model, my_preprocess), features, sim_threshold, timing=True)
 
     images = [ p for p in os.listdir(os.path.join(test_dir, 'sample_in/')) if p.endswith('.jpg')]
     images_path = [ os.path.join(test_dir, 'sample_in/',p) for p in images]
 
     start = timer()
+    times_list = []
+    img_size_list = []
+    candidate_len_list = []
     for i, img_path in enumerate(images_path):
 
         ## find candidate logos in image
-        prediction, r_image = detect_logo(yolo, img_path, save_img = True,
+        prediction, r_image = detect_logo(yolo, img_path, save_img = save_img_logo,
                                           save_img_path = test_dir, postfix='_logo')
 
         ## match candidate logos to input
-        img_test = cv2.imread(img_path)
+        outtxt, times = match_logo(img_path, prediction, (model, my_preprocess),
+                (feat_input, sim_cutoff, bins, cdf_list, input_labels),
+                save_img = save_img_match, save_img_path=test_dir, timing=True)
 
-        candidates = contents_of_bbox(img_test, prediction)
-        features_cand = features_from_image(candidates, model, my_preprocess)
+        img_size_list.append(np.sqrt(np.prod(r_image.size)))
+        candidate_len_list.append(len(prediction))
+        times_list.append(times)
 
-        matches, cos_sim = similar_matches(feat_input, features_cand, sim_cutoff, bins, cdf_list)
-
-        for idx in matches:
-            bb = prediction[idx]
-            print('Logo #{} - {} {} - classified as {} {:.2f}'.format(idx,
-              tuple(bb[:2]), tuple(bb[2:4]), input_labels[matches[idx][0]], matches[idx][1]))
-        new_img = draw_matches(img_test, input_labels, prediction, matches)
-
-        cv2.imwrite(os.path.join(test_dir, images[i]), new_img)
     end = timer()
-    print('Processed {} images in {:.1f}sec - {:.0f}FPS'.format(len(images_path), end-start, len(images_path)/(end-start) ))
+    print('Processed {} images in {:.1f}sec - {:.1f}FPS'.format(
+            len(images_path), end-start, len(images_path)/(end-start)
+           ))
+
+    fig, axes = plt.subplots(1,2, figsize=(9,4))
+    for iax in range(2):
+        for i in range(len(times_list[0])):
+            axes[iax].scatter([candidate_len_list, img_size_list][iax], np.array(times_list)[:,i])
+
+        axes[iax].legend(['read img','get box','get features','match','draw'])
+        axes[iax].set(xlabel=['number of candidates', 'image size'][iax], ylabel='Time [sec]')
+    plt.savefig(os.path.join(test_dir, 'timing_test.png'))
 
 
-
-
-# test()
-# sys.exit()
 
 FLAGS = None
 
@@ -169,8 +183,18 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        "--output", type=str, default="../data/output/",
+        '--test', default=False, action="store_true",
+        help='Test routine: run on few images in /data/test/ directory'
+    )
+
+    parser.add_argument(
+        "--output", type=str, default="../data/test/",
         help = "output path: either directory for single/batch image, or filename for video"
+    )
+
+    parser.add_argument(
+        "--outtxt", default=False, action="store_true",
+        help = "save text file with inference results"
     )
 
     parser.add_argument(
@@ -210,19 +234,24 @@ if __name__ == '__main__':
 
     FLAGS = parser.parse_args()
 
-
+    if FLAGS.test:
+        test()
+        exit()
+    save_to_txt = FLAGS.outtxt
+    output_txt = os.path.abspath(os.path.join(FLAGS.output, 'out.txt'))
     if FLAGS.image:
         """
         Image detection mode, either prompt user input or was passed as argument
         """
         print("Image detection mode")
 
-        save_to_txt = False
-
         if FLAGS.input_brands == 'input':
             print('Input logos to search for in images: (file-by-file or entire directory)')
 
             FLAGS.input_brands = parse_input()
+
+        elif os.path.isfile(FLAGS.input_brands):
+            FLAGS.input_brands = [ os.path.abspath(FLAGS.input_brands)  ]
 
         elif os.path.isdir(FLAGS.input_brands):
             FLAGS.input_brands = [ os.path.abspath(os.path.join(FLAGS.input_brands, f)) for f in os.listdir(FLAGS.input_brands) if f.endswith(('.jpg', '.png')) ]
@@ -245,6 +274,8 @@ if __name__ == '__main__':
 
         elif os.path.isdir(FLAGS.input_images):
             FLAGS.input_images = [ os.path.abspath(os.path.join(FLAGS.input_images, f)) for f in os.listdir(FLAGS.input_images) if f.endswith(('.jpg', '.png')) ]
+        elif os.path.isfile(FLAGS.input_images):
+            FLAGS.input_images = [ os.path.abspath(FLAGS.input_images)  ]
         else:
             exit('Error: path not found:', FLAGS.input_images)
 
@@ -292,6 +323,7 @@ if __name__ == '__main__':
             text = match_logo(img_path, prediction, (model, my_preprocess),
                     (feat_input, sim_cutoff, bins, cdf_list, input_labels),
                     save_img = save_img_match, save_img_path=FLAGS.output)
+            print(text)
             text_out += text
 
         if save_to_txt:
