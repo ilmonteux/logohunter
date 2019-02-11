@@ -1,4 +1,4 @@
-# Insight AI project: Logo detection as a service
+# LogoHunter: Brand Detection As A Service
 
 Machine learning project developed at Insight Data Science, 2019 AI session.
 
@@ -40,16 +40,31 @@ LINK-TO-WEIGHTS ----------------------->>>>>>
 Simply setup the conda environment with
 ```
 conda config --env --add channels conda-forge
-conda create --name logohunter --file requirements.txt
+conda create --name logohunter --file environment.yml
 source activate logohunter
 ```
 
 ## Usage
 The script doing the work is [logohunter.py](src/logohunter.py) in the `src/` directory.
+Execute it with the `-h` option to see its command line inputs. A simple test on 20 sample input
+images can be executed with:
 ```
 cd src/
-python logohunter.py --test
+python logohunter.py -h
 ```
+
+Typical ways to run the program involve specifying one input brand and a folder of sample images:
+```
+python logohunter.py  --image --input_brands ../data/test/test_brands/test_lexus.png --input_images ../data/test/lexus/  --output ../data/test/test_lexus/ --outtxt
+
+
+python logohunter.py  --image --input_brands ../data/test/test_brands/test_golden_state.jpg  --input_images ../data/test/goldenstate/  --output ../data/test/test_gs --outtxt
+
+python logohunter.py  --image --input_images data_test.txt --batch  --input_brands ../data/test/test_brands/test_lexus.png --output ./  --outtxt
+```
+
+In the first two cases, we test a folder of images for a single brand ([data/test/test_brands/test_lexus.png](lexus logo) or [data/test/test_brands/test_golden_state.jpg](golden state logo)). The input images were downloaded from Google Images for test purposes.
+In the third example, we test a text file containing links to 2590 input images from the LogosInTheWild dataset against a single brand.
 
 ## Build Environment
 
@@ -70,7 +85,7 @@ cd src/keras_yolo3
 wget https://pjreddie.com/media/files/yolov3.weights
 python convert.py yolov3.cfg yolov3.weights model_data/yolo.h5
 ```
-Training detail such as paths to train/text files, log directory, number of epochs, learning rates and so on are specified in `train.py`. The training is performed in two runs, first with all the layers except the last three frozen, and then with all layers trainable.
+Training detail such as paths to train/text files, log directory, number of epochs, learning rates and so on are specified in `src/train.py`. The training is performed in two runs, first with all the layers except the last three frozen, and then with all layers trainable.
 
 ```
 python train.py
