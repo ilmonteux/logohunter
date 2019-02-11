@@ -8,8 +8,58 @@ from PIL import Image, ImageFont, ImageDraw
 
 from timeit import default_timer as timer
 
+import readline
+readline.parse_and_bind("tab: complete")
+
+def parse_input():
+    """
+    Ask user input for input images: pass path to individual images, directory
+    """
+    out = []
+    while True:
+        ins = input('Enter path (q to quit):').strip()
+        if ins in ['q','quit']:
+            break
+        if not os.path.exists(ins):
+            print('Error: file not found!')
+        elif os.path.isdir(ins):
+            out = [ os.path.abspath(os.path.join(ins,f)) for f in os.listdir(ins) if f.endswith(('.jpg', '.png')) ]
+            break
+        elif ins.endswith(('.jpg', '.png')):
+            out.append(os.path.abspath(ins))
+        print(out)
+    return out
+
+
+def load_extractor_model():
+    from keras.applications.inception_v3 import InceptionV3
+    from keras.applications.inception_v3 import preprocess_input
+    model = InceptionV3(weights='imagenet', include_top=False)
+
+    return model, preprocess_input
+
+def chain_preprocess(img, input_shape, preprocess_func):
+    """
+    Concatenate padding and preprocess function
+
+    Args:
+      img: (H,W,C) input array
+      input_shape: target shape after padding
+      preprocess_func: function taking 3D np.array to 3D np.array
+    Returns:
+      3D np.array
+    """
+    return preprocess_func(pad_image(img, input_shape))
 
 def bbox_colors(n):
+    """
+    Define n distinct bounding box colors
+
+    Args:
+      n: number of colors
+    Returns:
+      colors: (n, 3) np.array with RGB integer values in [0-255] range
+    """
     hsv_tuples = [(x / n, 1., 1.) for x in range(n)]
     colors = 255 * np.array([ colorsys.hsv_to_rgb(*x) for x in hsv_tuples])
 
@@ -99,7 +149,7 @@ def chunks(l, n, preprocessing_function = None):
 
 def load_features(filename):
     """
-    Load pre-saved features for all logos in the LogosInTheWild database
+    Load pre-saved HDF5 features for all logos in the LogosInTheWild database
     """
 
     start = timer()
@@ -146,7 +196,6 @@ def draw_annotated_box(image, box_list_list, label_list, color_list):
     """
 
     font_path = os.path.join(os.path.dirname(__file__), 'keras_yolo3/font/FiraMono-Medium.otf')
-
     font = ImageFont.truetype(font = font_path, size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
     thickness = (image.size[0] + image.size[1]) // 300
 
