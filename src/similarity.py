@@ -16,7 +16,7 @@ def features_from_image(img_array, model, preprocess, batch_size = 100):
       img_array: (N, H, W, C) list/array of input images
       model: keras model, outputs
     Returns:
-      (N, F) array of 1D features
+      features: (N, F) array of 1D features
     """
 
     if len(img_array) == 0:
@@ -42,9 +42,11 @@ def similarity_cutoff(feat_input, features, threshold=0.95):
     Args:
       feat_input: (n_input, N) array of features for input
       features: (n_database, N) array of features for logo database
-      threshold: fractional threshold
+      threshold: fractional threshold for setting the cutoff
     Returns:
       cutoff_list: list of cutoffs for each input
+      (bins, cdf_list): bins specifications and list of CDF distributions
+        for similarity of the logo database against each input.
     """
 
     start = timer()
@@ -62,6 +64,47 @@ def similarity_cutoff(feat_input, features, threshold=0.95):
     print('Computed similarity cutoffs given inputs in {:.2f}sec'.format(end - start))
 
     return cutoff_list, (bins, cdf_list)
+
+
+def load_brands_compute_cutoffs(input_paths, model_preproc, features, threshold = 0.95):
+    """
+    Given paths to input brand images, this is a wrapper to features_from_image()
+    and similarity_cutoff().
+
+    Args:
+      input_paths: list of paths to input images
+      model_preproc: (model, preprocess) tuple of model extractor and
+        image preprocessing function
+      features: (n_database, N) array of features for logo database
+      threshold: fractional threshold for setting the cutoff
+    Returns:
+      img_input: list of iamges (3D np.arrays)
+      feat_input: (n_input, F) array of 1D features extracted from input images
+      cutoff_list: list of cutoffs for each input
+      (bins, cdf_list): bins specifications and list of CDF distributions
+        for similarity of the logo database against each input.
+    """
+
+    img_input = []
+    for path in input_paths:
+        img = cv2.imread(path)
+        if img is not None:
+            img_input.append(img[:,:,::-1])
+        else:
+            print(path)
+
+    model, my_preprocess = model_preproc
+    feat_input = features_from_image(np.array(img_input), model, my_preprocess)
+
+    sim_cutoff, (bins, cdf_list)= similarity_cutoff(feat_input, features, threshold)
+
+    print('Resulting 95% similarity threshold for targets:')
+    for path, cutoff in zip(input_paths, sim_cutoff):
+        print('    {}  {:.2f}'.format(path, cutoff))
+
+    return img_input, feat_input, sim_cutoff, (bins, cdf_list)
+
+
 
 def similar_matches(feat_input, features_cand, cutoff_list, bins, cdf_list):
     """
@@ -114,6 +157,7 @@ def similar_matches(feat_input, features_cand, cutoff_list, bins, cdf_list):
     print('Found {} logos from {} classes'.format(len(matches), n_classes))
 
     return matches, cos_sim
+
 
 def draw_matches(img_test, inputs, prediction, matches):
     """
