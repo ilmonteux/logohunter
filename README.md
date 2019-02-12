@@ -20,59 +20,58 @@ In this project, I built a general-purpose logo detection API. To avoid re-train
 ## Getting Started
 
 #### Requisites
-The code uses python 3.6, Keras with Tensorflow backend, and a conda environment to keep everything together. Training was performed on a AWS p2.xlarge instance (Tesla K80 GPU).
+The code uses python 3.6, Keras with Tensorflow backend, and a conda environment to keep everything together. Training was performed on a AWS p2.xlarge instance (Tesla K80 GPU). Inference is faster on a GPU (3-5 images per second), but also works on a CPU (0.5 images per second).
 
 #### Installation
+
+#### Clone, setup conda environment
 Clone this repo with:
 ```
 git clone https://github.com/ilmonteux/logohunter.git
 ```
 
-Download the pre-trained model weights and the LogosInTheWild features extracted from a pre-trained InceptionV3 network:
-```
-LINK-TO-WEIGHTS ----------------------->>>>>>
-
-
-```
-
-#### clone, setup conda environment
-
 Simply setup the conda environment with
 ```
 conda config --env --add channels conda-forge
-conda create --name logohunter --file environment.yml
+conda env create -f environment.yml
 source activate logohunter
+```
+
+#### Build Environment
+
+Download the pre-trained model weights (235MB) and the LogosInTheWild features extracted from a pre-trained InceptionV3 network (1.5GB):
+
+```
+bash build/build.sh
 ```
 
 ## Usage
 The script doing the work is [logohunter.py](src/logohunter.py) in the `src/` directory.
 Execute it with the `-h` option to see its command line inputs. A simple test on 20 sample input
-images can be executed with:
+images in the [data/test/sample_in/](data/test/sample_in/) directory can be executed with:
 ```
 cd src/
-python logohunter.py -h
+python logohunter.py --test
 ```
 
-Typical ways to run the program involve specifying one input brand and a folder of sample images:
+Typical ways to run the program involve specifying one input brand and a folder of sample images (this commands will not work out of the box as the images are copyrighted and I have no right to distribute them):
 ```
 python logohunter.py  --image --input_brands ../data/test/test_brands/test_lexus.png --input_images ../data/test/lexus/  --output ../data/test/test_lexus/ --outtxt
 
-
 python logohunter.py  --image --input_brands ../data/test/test_brands/test_golden_state.jpg  --input_images ../data/test/goldenstate/  --output ../data/test/test_gs --outtxt
 
-python logohunter.py  --image --input_images data_test.txt --batch  --input_brands ../data/test/test_brands/test_lexus.png --output ./  --outtxt
+python logohunter.py  --image --input_images data_test.txt --batch  --input_brands ../data/test/test_brands/test_lexus.png --output ./  --outtxt --no_save_img
 ```
 
 In the first two cases, we test a folder of images for a single brand ([data/test/test_brands/test_lexus.png](lexus logo) or [data/test/test_brands/test_golden_state.jpg](golden state logo)). The input images were downloaded from Google Images for test purposes.
-In the third example, we test a text file containing links to 2590 input images from the LogosInTheWild dataset against a single brand.
+In the third example, we test a text file containing links to 2590 input images from the LogosInTheWild dataset against a single brand, skipping saving the output images.
 
-## Build Environment
 
 
 #### Data
 This project uses the [Logos In The Wild dataset](https://www.iosb.fraunhofer.de/servlet/is/78045/) which can be requested via email directly from the authors of the paper, [arXiv:1710.10891](https://arxiv.org/abs/1710.10891). This dataset includes 11,054 images with 32,850 bounding boxes for a total of 871 brands.
 
-The dataset is licensed under the CC-by-SA 4.0 license. The images themselves were crawled from Google Images and are property of their respective copyright owners. For legal reasons, we do not provide the raw images: while this project would fall in the "fair use" category, any commercial application would likely need to generate their own dataset. See below for downloading the dataset.
+See below for LICENSE information.
 
 #### Optional: download, process and clean dataset
 
@@ -84,9 +83,19 @@ After the previous step, the `data_train.txt` and `data_test.txt` files have all
 cd src/keras_yolo3
 wget https://pjreddie.com/media/files/yolov3.weights
 python convert.py yolov3.cfg yolov3.weights model_data/yolo.h5
+
+
+python train.py
 ```
 Training detail such as paths to train/text files, log directory, number of epochs, learning rates and so on are specified in `src/train.py`. The training is performed in two runs, first with all the layers except the last three frozen, and then with all layers trainable.
 
-```
-python train.py
-```
+On an AWS EC2 p2.xlarge instance, with a Tesla K-80 GPU with 11GB  of GPU memory and 64GB of RAM, training YOLOv3 for logo detection took approximately 10 hours for 50+50 epochs.
+
+## License
+
+Unless explicitly stated at the top of a file, all code is licensed under the MIT license.
+
+
+The Logos In The Wild dataset (links to images, bounding box annotations, clean_dataset.py script) is licensed under the CC-by-SA 4.0 license. The images themselves were crawled from Google Images and are property of their respective copyright owners. For legal reasons, we do not provide the raw images: while this project would fall in the "fair use" category, any commercial application would likely need to generate their own dataset.
+
+The HDF5 files for the YOLO weights and the extracted logo features are derivative work based off of the Logos In The Wild dataset, and are therefore also licensed under the CC-by-SA 4.0 license.

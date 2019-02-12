@@ -18,7 +18,7 @@ from similarity import features_from_image, similarity_cutoff, load_brands_compu
 from timeit import default_timer as timer
 
 input_shape = (299,299,3)
-sim_threshold = 0.95 
+sim_threshold = 0.95
 
 
 def detect_logo(yolo, img_path, save_img, save_img_path='./', postfix=''):
@@ -62,7 +62,7 @@ def match_logo(img_path, prediction, model_preproc, input_features_cdf_cutoff_la
     t_feat = timer()-start
     matches, cos_sim = similar_matches(feat_input, features_cand, sim_cutoff, bins, cdf_list)
     t_match = timer()-start
-    
+
     outtxt = img_path
     for idx in matches:
         bb = prediction[idx]
@@ -94,6 +94,7 @@ def test():
                 "model_image_size" : (416, 416),
                 }
                )
+    save_img_logo, save_img_match = True, True
 
     test_dir = os.path.join(os.path.dirname(__file__), os.path.pardir, 'data/test')
 
@@ -242,8 +243,8 @@ if __name__ == '__main__':
     if FLAGS.test:
         test()
         exit()
-    
-    
+
+
     save_img_logo, save_img_match = not FLAGS.no_save_img, not FLAGS.no_save_img
 
     if FLAGS.image:
@@ -263,7 +264,7 @@ if __name__ == '__main__':
         elif os.path.isdir(FLAGS.input_brands):
             FLAGS.input_brands = [ os.path.abspath(os.path.join(FLAGS.input_brands, f)) for f in os.listdir(FLAGS.input_brands) if f.endswith(('.jpg', '.png')) ]
         else:
-            exit('Error: path not found:', FLAGS.input_brands)
+            exit('Error: path not found:{}'.format(FLAGS.input_brands))
 
 
         if FLAGS.batch and FLAGS.input_images.endswith('.txt'):
@@ -284,7 +285,7 @@ if __name__ == '__main__':
         elif os.path.isfile(FLAGS.input_images):
             FLAGS.input_images = [ os.path.abspath(FLAGS.input_images)  ]
         else:
-            exit('Error: path not found:', FLAGS.input_images)
+            exit('Error: path not found: {}'.format(FLAGS.input_images))
 
 
         print('Found {} input brands: {}...'.format(len(FLAGS.input_brands), [ os.path.basename(f) for f in FLAGS.input_brands[:5]]))
