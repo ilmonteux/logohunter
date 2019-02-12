@@ -75,7 +75,7 @@ See below for LICENSE information.
 
 #### Optional: download, process and clean dataset
 
-Follow the directions in [data/](data/README) to download the Logos In The Wild dataset.
+Follow the directions in [data/](data/README.md) to download the Logos In The Wild dataset.
 
 #### Optional: train object detection model
 After the previous step, the `data_train.txt` and `data_test.txt` files have all the info necessary to train the model. We then follow the instructions of the [keras-yolo3](https://github.com/qqwweee/keras-yolo3) repo: first we download pre-trained YOLO weights from the YOLO official website, and then we convert them to the HDF5 format used by keras.
