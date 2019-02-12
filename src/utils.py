@@ -12,6 +12,7 @@ import readline
 readline.parse_and_bind("tab: complete")
 
 
+input_shape = (299,299,3)
 min_logo_size = (10,10)
 
 def parse_input():
@@ -39,66 +40,126 @@ def load_extractor_model():
     from keras.applications.inception_v3 import preprocess_input
     model = InceptionV3(weights='imagenet', include_top=False)
 
-    return model, preprocess_input
+    my_preprocess = lambda x: preprocess_input(pad_image(x, input_shape))
+    return model, my_preprocess
 
-def chain_preprocess(img, input_shape, preprocess_func):
-    """
-    Concatenate padding and preprocess function
 
-    Args:
-      img: (H,W,C) input array
-      input_shape: target shape after padding
-      preprocess_func: function taking 3D np.array to 3D np.array
-    Returns:
-      3D np.array
-    """
-    return preprocess_func(pad_image(img, input_shape))
 
-def bbox_colors(n):
-    """
-    Define n distinct bounding box colors
+
+def chunks(l, n, preprocessing_function = None):
+    """Yield successive n-sized chunks from l.
+
+    Modification to work with Keras: made infinite loop,
+    add preprocessing, returns np.array
 
     Args:
-      n: number of colors
+      l: iterable
+      n: number of items to take for each chunk
+      preprocessing_function: function that processes image (3D array)
     Returns:
-      colors: (n, 3) np.array with RGB integer values in [0-255] range
+      generator with n-sized np.array preprocessed chunks of the input
     """
-    hsv_tuples = [(x / n, 1., 1.) for x in range(n)]
-    colors = 255 * np.array([ colorsys.hsv_to_rgb(*x) for x in hsv_tuples])
 
-    np.random.seed(10101)  # Fixed seed for consistent colors across runs.
-    np.random.shuffle(colors)  # Shuffle colors to decorrelate adjacent classes.
-    np.random.seed(None)  # Reset seed to default.
+    func = (lambda x: x) if (preprocessing_function is None) else preprocessing_function
 
-    return colors.astype(int)
+    # in predict_generator, steps argument sets how many times looped through "while True"
+    while True:
+        for i in range(0, len(l), n):
+            yield np.array([func(el) for el in l[i:i + n]])
 
-def contents_of_bbox(img, bbox_list, expand=1.):
+
+def features_from_image(img_array, model, preprocess, batch_size = 100):
     """
-    Extract portions of image inside  bounding boxes list.
+    Extract features from image array given a decapitated keras model.
+    Use a generator to avoid running out of memory for large inputs.
 
     Args:
-      img: 3D image array
-      bbox_list: list of bounding box specifications, with first 4 elements
-      specifying box corners in (xmin, ymin, xmax, ymax) format.
+      img_array: (N, H, W, C) list/array of input images
+      model: keras model, outputs
     Returns:
-      candidates: list of 3D image arrays
+      features: (N, F) array of 1D features
     """
 
-    candidates =[]
-    for xmin, ymin, xmax, ymax, *_ in bbox_list:
-        
-        # for very low confidence sometimes logos found outside of the image
-        if ymin > img.shape[0] or xmin > img.shape[1]:
-            continue
+    if len(img_array) == 0:
+        return np.array([])
 
-        xmin, ymin = int(xmin//expand), int(ymin//expand)
-        xmax, ymax = int(np.round(xmax//expand)), int(np.round(ymax//expand))
-        
-        # do not even consider tiny logos
-        if xmax-xmin > min_logo_size[1] and ymax-ymin > min_logo_size[0]:
-            candidates.append(img[ymin:ymax, xmin:xmax])
+    steps = len(img_array)//batch_size + 1
+    img_gen = chunks(img_array, batch_size, preprocessing_function = preprocess)
+    features = model.predict_generator(img_gen, steps = steps)
 
-    return candidates
+    # if the generator has looped past end of array, cut it down
+    features = features[:len(img_array)]
+
+    # reshape features: flatten last three dimensions to one
+    features = features.reshape(features.shape[0], np.prod(features.shape[1:]))
+    return features
+
+
+def load_features(filename):
+    """
+    Load pre-saved HDF5 features for all logos in the LogosInTheWild database
+    """
+
+    start = timer()
+    # get database features
+    with  h5py.File(filename, 'r') as hf:
+        brand_map = list(hf.get('brand_map'))
+        features = hf.get('features')
+        features = np.array(features)
+    end = timer()
+    print('Loaded {} features from {} in {:.2f}sec'.format(features.shape, filename, end-start))
+
+    return brand_map, features
+
+def save_features(filename, features, brand_map):
+    """
+    Save features to compressed HDF5 file for later use
+    """
+
+    print('Saving {} features into {}... '.format(features.shape, filename), end='')
+    # reduce file size by saving as float16
+    features = features.astype(np.float16)
+    start = timer()
+    with h5py.File(filename, 'w') as hf:
+        hf.create_dataset('features', data = features, compression='lzf')
+        hf.create_dataset('brand_map', data = brand_map)
+
+    end = timer()
+    print('done in {:.2f}sec'.format(end-start))
+
+    return None
+
+def features_from_image(img_array, model, preprocess, batch_size = 100):
+    """
+    Extract features from image array given a decapitated keras model.
+    Use a generator to avoid running out of memory for large inputs.
+
+    Args:
+      img_array: (N, H, W, C) list/array of input images
+      model: keras model, outputs
+    Returns:
+      features: (N, F) array of 1D features
+    """
+
+    if len(img_array) == 0:
+        return np.array([])
+
+    steps = len(img_array)//batch_size + 1
+    img_gen = chunks(img_array, batch_size, preprocessing_function = preprocess)
+    features = model.predict_generator(img_gen, steps = steps)
+
+    # if the generator has looped past end of array, cut it down
+    features = features[:len(img_array)]
+
+    # reshape features: flatten last three dimensions to one
+    features = features.reshape(features.shape[0], np.prod(features.shape[1:]))
+    return features
+
+
+##################################################
+# image processing and bounding box functions
+##################################################
+
 
 
 def pad_image(img, shape, mode = 'constant_mean'):
@@ -137,61 +198,52 @@ def pad_image(img, shape, mode = 'constant_mean'):
     return new_im
 
 
-def chunks(l, n, preprocessing_function = None):
-    """Yield successive n-sized chunks from l.
-
-    Modification to work with Keras: made infinite loop,
-    add preprocessing, returns np.array
+def bbox_colors(n):
+    """
+    Define n distinct bounding box colors
 
     Args:
-      l: iterable
-      n: number of items to take for each chunk
-      preprocessing_function: function that processes image (3D array)
+      n: number of colors
     Returns:
-      generator with n-sized np.array preprocessed chunks of the input
+      colors: (n, 3) np.array with RGB integer values in [0-255] range
+    """
+    hsv_tuples = [(x / n, 1., 1.) for x in range(n)]
+    colors = 255 * np.array([ colorsys.hsv_to_rgb(*x) for x in hsv_tuples])
+
+    np.random.seed(10101)  # Fixed seed for consistent colors across runs.
+    np.random.shuffle(colors)  # Shuffle colors to decorrelate adjacent classes.
+    np.random.seed(None)  # Reset seed to default.
+
+    return colors.astype(int)
+
+def contents_of_bbox(img, bbox_list, expand=1.):
+    """
+    Extract portions of image inside  bounding boxes list.
+
+    Args:
+      img: 3D image array
+      bbox_list: list of bounding box specifications, with first 4 elements
+      specifying box corners in (xmin, ymin, xmax, ymax) format.
+    Returns:
+      candidates: list of 3D image arrays
     """
 
-    func = (lambda x: x) if (preprocessing_function is None) else preprocessing_function
+    candidates =[]
+    for xmin, ymin, xmax, ymax, *_ in bbox_list:
 
-    # in predict_generator, steps argument sets how many times looped through "while True"
-    while True:
-        for i in range(0, len(l), n):
-            yield np.array([func(el) for el in l[i:i + n]])
+        # for very low confidence sometimes logos found outside of the image
+        if ymin > img.shape[0] or xmin > img.shape[1]:
+            continue
 
+        xmin, ymin = int(xmin//expand), int(ymin//expand)
+        xmax, ymax = int(np.round(xmax//expand)), int(np.round(ymax//expand))
 
-def load_features(filename):
-    """
-    Load pre-saved HDF5 features for all logos in the LogosInTheWild database
-    """
+        # do not even consider tiny logos
+        if xmax-xmin > min_logo_size[1] and ymax-ymin > min_logo_size[0]:
+            candidates.append(img[ymin:ymax, xmin:xmax])
 
-    start = timer()
-    # get database features
-    with  h5py.File(filename, 'r') as hf:
-        brand_map = list(hf.get('brand_map'))
-        features = hf.get('features')
-        features = np.array(features)
-    end = timer()
-    print('Loaded {} features from {} in {:.2f}sec'.format(features.shape, filename, end-start))
+    return candidates
 
-    return brand_map, features
-
-def save_features(filename, features, brand_map):
-    """
-    Save features to compressed HDF5 file for later use
-    """
-
-    print('Saving {} features into {}... '.format(features.shape, filename), end='')
-    # reduce file size by saving as float16
-    features = features.astype(np.float16)
-    start = timer()
-    with h5py.File(filename, 'w') as hf:
-        hf.create_dataset('features', data = features, compression='lzf')
-        hf.create_dataset('brand_map', data = brand_map)
-
-    end = timer()
-    print('done in {:.2f}sec'.format(end-start))
-
-    return None
 
 def draw_annotated_box(image, box_list_list, label_list, color_list):
     """

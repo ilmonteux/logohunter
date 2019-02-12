@@ -7,32 +7,6 @@ from timeit import default_timer as timer
 from PIL import Image
 
 
-def features_from_image(img_array, model, preprocess, batch_size = 100):
-    """
-    Extract features from image array given a decapitated keras model.
-    Use a generator to avoid running out of memory for large inputs.
-
-    Args:
-      img_array: (N, H, W, C) list/array of input images
-      model: keras model, outputs
-    Returns:
-      features: (N, F) array of 1D features
-    """
-
-    if len(img_array) == 0:
-        return np.array([])
-
-    steps = len(img_array)//batch_size + 1
-    img_gen = chunks(img_array, batch_size, preprocessing_function = preprocess)
-    features = model.predict_generator(img_gen, steps = steps)
-
-    # if the generator has looped past end of array, cut it down
-    features = features[:len(img_array)]
-
-    # reshape features: flatten last three dimensions to one
-    features = features.reshape(features.shape[0], np.prod(features.shape[1:]))
-    return features
-
 def similarity_cutoff(feat_input, features, threshold=0.95, timing=False):
     """
     Given list of input feature and feature database, compute distribution of

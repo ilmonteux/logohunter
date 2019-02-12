@@ -12,12 +12,13 @@ import numpy as np
 import argparse
 
 from keras_yolo3.yolo import YOLO
-from utils import contents_of_bbox, load_features, bbox_colors, parse_input, chain_preprocess, load_extractor_model
-from similarity import features_from_image, similarity_cutoff, load_brands_compute_cutoffs, similar_matches, draw_matches
+import utils
+from utils import contents_of_bbox, load_features, bbox_colors, parse_input, load_extractor_model, features_from_image
+from similarity import similarity_cutoff, load_brands_compute_cutoffs, similar_matches, draw_matches
 
 from timeit import default_timer as timer
 
-input_shape = (299,299,3)
+input_shape = utils.input_shape
 sim_threshold = 0.95
 
 
@@ -31,6 +32,9 @@ def detect_logo(yolo, img_path, save_img, save_img_path='./', postfix=''):
       save_img: bool to save annotated image
       save_img_path: path to directory where to save image
       postfix: string to add to filenames
+    Returns:
+      prediction: bounding boxes in format (xmin,ymin,xmax,ymax,class_id,confidence)
+      r_image: annotated PIL image
     """
     try:
         image = Image.open(img_path)
@@ -50,11 +54,30 @@ def detect_logo(yolo, img_path, save_img, save_img_path='./', postfix=''):
 
 def match_logo(img_path, prediction, model_preproc, input_features_cdf_cutoff_labels,
                save_img, save_img_path='./', timing=False):
+    """
+    Given an a path to an image and a list of predicted bounding boxes,
+    extract features and check each against input brand features. Declare
+    a match if the cosine similarity is smaller than an input-dependent
+    cutoff. Draw and annotate resulting boxes on image.
+
+    Args:
+      img_path: path to image to be scanned for matches
+      prediction: bounding box candidates
+      model_preproc: (model, preprocess) tuple of the feature extractor model
+        and the preprocessing function to be applied to image before the model
+      input_features_cdf_cutoff_labels = (feat_input, sim_cutoff, bins, cdf_list, input_labels)
+        tuple of lists related to input brand, giving pre-computed features,
+        similarity cutoffs, cumulative similarity distribution and relative bins
+        specifications, and labels to be drawn when matches are found.
+      save_img: bool flag to save annotated image
+      save_img_path: path to directory where to save image
+      timing: bool flag to output timing information for each step, make plot
+    """
 
     start = timer()
     model, my_preprocess = model_preproc
     feat_input, sim_cutoff, bins, cdf_list, input_labels = input_features_cdf_cutoff_labels
-    img_test = cv2.imread(img_path)
+    img_test = cv2.imread(img_path) # could be removed by passing previous PIL image
     t_read = timer()-start
     candidates = contents_of_bbox(img_test, prediction)
     t_box = timer()-start
@@ -86,6 +109,10 @@ def match_logo(img_path, prediction, model_preproc, input_features_cdf_cutoff_la
 
 
 def test():
+    """
+    Test function: runs pipeline for a small set of input images and input
+    brands.
+    """
     yolo = YOLO(**{"model_path": 'keras_yolo3/yolo_weights_logos.h5',
                 "anchors_path": 'keras_yolo3/model_data/yolo_anchors.txt',
                 "classes_path": 'data_classes.txt',
@@ -103,8 +130,7 @@ def test():
     brand_map, features = load_features(filename)
 
     ## load inception model
-    model, preprocess_input = load_extractor_model()
-    my_preprocess = lambda x: chain_preprocess(x, input_shape, preprocess_input)
+    model, my_preprocess = load_extractor_model()
 
     ## load sample images of logos to test against
     input_paths = ['test_batman.jpg', 'test_robin.png', 'test_lexus.png', 'test_champions.jpg',
@@ -165,7 +191,7 @@ if __name__ == '__main__':
 
     parser.add_argument(
         '--image', default=False, action="store_true",
-        help='Image detection mode, will ignore all positional arguments'
+        help='Image detection mode'
     )
 
     parser.add_argument(
@@ -225,7 +251,7 @@ if __name__ == '__main__':
 
     parser.add_argument(
         '--confidence', type=float, dest = 'score', default = 0.1,
-        help='YOLO confidence threshold above which to show predictions'
+        help='YOLO object confidence threshold above which to show predictions'
     )
 
     parser.add_argument(
@@ -313,8 +339,7 @@ if __name__ == '__main__':
         brand_map, features = load_features(FLAGS.features)
 
         ## load inception model
-        model, preprocess_input = load_extractor_model()
-        my_preprocess = lambda x: chain_preprocess(x, input_shape, preprocess_input)
+        model, my_preprocess = load_extractor_model()
 
         # compute cosine similarity between input brand images and all LogosInTheWild logos
         ( img_input, feat_input, sim_cutoff, (bins, cdf_list)
