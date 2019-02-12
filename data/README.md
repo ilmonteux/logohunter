@@ -1,10 +1,17 @@
 # Dataset
 
+## test
+This directory contains images to test your installation and run the inference on a sample. The structure is the following:
+```
+data/
+├── sample_in/  
+└── test_brands/
+```
+`sample_in` contains a sample of 20 images with logos in them, while `test_brands` contains a selection of 17 brands, most of which are new to the model (not being part of the Logos In The Wild Dataset).
 
 ## Logos In The Wild Dataset: first-time setup
 
-
-After contacting the authors of [https://arxiv.org/abs/1710.10891](arXiv:1710.10891) you will receive a download link to the [Logos In The Wild Dataset](https://www.iosb.fraunhofer.de/servlet/is/78045/), which is a zip file. Place it in this directory (`data/`), unzip it and your directory tree should be the following
+After contacting the authors of [arXiv:1710.10891](https://arxiv.org/abs/1710.10891) you will receive a download link to the [Logos In The Wild Dataset](https://www.iosb.fraunhofer.de/servlet/is/78045/), which is a zip file. Place it in this directory (`data/`), unzip it and your directory tree should be the following
 ```
 REPO
 ├── src/  
@@ -71,4 +78,4 @@ By default, we have `class_id=0` for all logos, as we train the network to learn
 
 ## Next steps
 
-Now that we have the dataset, we can train the neural network. Head back to [the main directory](../)
+Now that we have the dataset, we can train the neural network. Head back to [the main directory](/)
