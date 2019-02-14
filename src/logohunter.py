@@ -2,110 +2,25 @@
 # MASTER SCRIPT TO DETECT LOGOS IN IMAGE AND FIND MATCHES
 # for each image find and pass logos, compute features, see if logo passes cutoff, save image
 #
-import matplotlib.pyplot as plt
-
-import sys, os
-from PIL import Image
-import cv2
-import numpy as np
 
 import argparse
-
+import cv2
 from keras_yolo3.yolo import YOLO
-import utils
-from utils import contents_of_bbox, load_features, bbox_colors, parse_input, load_extractor_model, features_from_image
-from similarity import similarity_cutoff, load_brands_compute_cutoffs, similar_matches, draw_matches
-
+import matplotlib.pyplot as plt
+import numpy as np
+import os
+import sys
+from PIL import Image
 from timeit import default_timer as timer
+
+from logos import detect_logo, match_logo
+from similarity import load_brands_compute_cutoffs
+from utils import load_extractor_model, load_features, parse_input
+import utils
 
 input_shape = utils.input_shape
 sim_threshold = 0.95
-
-
-def detect_logo(yolo, img_path, save_img, save_img_path='./', postfix=''):
-    """
-    Call YOLO logo detector on input image, optionally save resulting image.
-
-    Args:
-      yolo: keras-yolo3 initialized YOLO instance
-      img_path: path to image file
-      save_img: bool to save annotated image
-      save_img_path: path to directory where to save image
-      postfix: string to add to filenames
-    Returns:
-      prediction: bounding boxes in format (xmin,ymin,xmax,ymax,class_id,confidence)
-      r_image: annotated PIL image
-    """
-    try:
-        image = Image.open(img_path)
-        if image.mode != "RGB":
-            image = image.convert("RGB")
-    except:
-        print('File Open Error! Try again!')
-        return None, None
-
-    prediction, r_image = yolo.detect_image(image)
-
-    img_out = postfix.join(os.path.splitext(os.path.basename(img_path)))
-    if save_img:
-        r_image.save(os.path.join(save_img_path, img_out))
-
-    return prediction, r_image
-
-def match_logo(img_path, prediction, model_preproc, input_features_cdf_cutoff_labels,
-               save_img, save_img_path='./', timing=False):
-    """
-    Given an a path to an image and a list of predicted bounding boxes,
-    extract features and check each against input brand features. Declare
-    a match if the cosine similarity is smaller than an input-dependent
-    cutoff. Draw and annotate resulting boxes on image.
-
-    Args:
-      img_path: path to image to be scanned for matches
-      prediction: bounding box candidates
-      model_preproc: (model, preprocess) tuple of the feature extractor model
-        and the preprocessing function to be applied to image before the model
-      input_features_cdf_cutoff_labels = (feat_input, sim_cutoff, bins, cdf_list, input_labels)
-        tuple of lists related to input brand, giving pre-computed features,
-        similarity cutoffs, cumulative similarity distribution and relative bins
-        specifications, and labels to be drawn when matches are found.
-      save_img: bool flag to save annotated image
-      save_img_path: path to directory where to save image
-      timing: bool flag to output timing information for each step, make plot
-    """
-
-    start = timer()
-    model, my_preprocess = model_preproc
-    feat_input, sim_cutoff, bins, cdf_list, input_labels = input_features_cdf_cutoff_labels
-    img_test = cv2.imread(img_path) # could be removed by passing previous PIL image
-    t_read = timer()-start
-    candidates = contents_of_bbox(img_test, prediction)
-    t_box = timer()-start
-    features_cand = features_from_image(candidates, model, my_preprocess)
-    t_feat = timer()-start
-    matches, cos_sim = similar_matches(feat_input, features_cand, sim_cutoff, bins, cdf_list)
-    t_match = timer()-start
-
-    outtxt = img_path
-    for idx in matches:
-        bb = prediction[idx]
-        label = input_labels[matches[idx][0]]
-        print('Logo #{} - {} {} - classified as {} {:.2f}'.format(idx,
-          tuple(bb[:2]), tuple(bb[2:4]), label, matches[idx][1]))
-
-        outtxt += ' {},{},{},{},{},{:.2f},{:.3f}'.format(*bb[:4], label,bb[-1], matches[idx][1])
-    outtxt += '\n'
-
-    new_img = draw_matches(img_test, input_labels, prediction, matches)
-    t_draw = timer()-start
-    if save_img == True:
-        save_img_path = os.path.abspath(save_img_path)
-        a = cv2.imwrite(os.path.join(save_img_path, os.path.basename(img_path)), new_img)
-
-    if timing:
-        return outtxt, (t_read, t_box-t_read, t_feat-t_box, t_match-t_feat, t_draw-t_match)
-
-    return outtxt
+output_txt = 'out.txt'
 
 
 def test():
@@ -150,17 +65,18 @@ def test():
     img_size_list = []
     candidate_len_list = []
     for i, img_path in enumerate(images_path):
+        outtxt = img_path
 
         ## find candidate logos in image
-        prediction, r_image = detect_logo(yolo, img_path, save_img = True,
+        prediction, image, new_image = detect_logo(yolo, img_path, save_img = True,
                                           save_img_path = test_dir, postfix='_logo')
 
         ## match candidate logos to input
-        outtxt, times = match_logo(img_path, prediction, (model, my_preprocess),
-                (feat_input, sim_cutoff, bins, cdf_list, input_labels),
+        outtxt, times = match_logo(image, prediction, (model, my_preprocess),
+                outtxt, (feat_input, sim_cutoff, bins, cdf_list, input_labels),
                 save_img = save_img_match, save_img_path=test_dir, timing=True)
 
-        img_size_list.append(np.sqrt(np.prod(r_image.size)))
+        img_size_list.append(np.sqrt(np.prod(new_image.size)))
         candidate_len_list.append(len(prediction))
         times_list.append(times)
 
@@ -220,7 +136,7 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        "--outtxt", default=False, action="store_true",
+        "--outtxt", default=False, dest='save_to_txt', action="store_true",
         help = "save text file with inference results"
     )
 
@@ -296,7 +212,7 @@ if __name__ == '__main__':
         if FLAGS.batch and FLAGS.input_images.endswith('.txt'):
             print("Batch image detection mode: reading "+FLAGS.input_images)
             output_txt = FLAGS.input_images.split('.txt')[0]+'_pred.txt'
-            save_to_txt = True
+            FLAGS.save_to_txt = True
             with open(FLAGS.input_images, 'r') as file:
                 file_list = [line.split(' ')[0] for line in file.read().splitlines()]
             FLAGS.input_images = [os.path.abspath(f) for f in file_list]
@@ -333,6 +249,7 @@ if __name__ == '__main__':
 
 
         input_paths = sorted(FLAGS.input_brands)
+        # labels to draw on images - could also be read from filename
         input_labels = [ os.path.basename(s).split('test_')[-1].split('.')[0] for s in input_paths]
 
         ## load pre-processed features database
@@ -349,17 +266,18 @@ if __name__ == '__main__':
         # cycle trough input images, look for logos and then match them against inputs
         text_out = ''
         for i, img_path in enumerate(FLAGS.input_images):
-            prediction, r_image = detect_logo(yolo, img_path, save_img = save_img_logo,
+            text = img_path
+            prediction, image = detect_logo(yolo, img_path, save_img = save_img_logo,
                                               save_img_path = FLAGS.output,
                                               postfix='_logo')
 
-            text = match_logo(img_path, prediction, (model, my_preprocess),
+            text = match_logo(image, prediction, (model, my_preprocess), text,
                     (feat_input, sim_cutoff, bins, cdf_list, input_labels),
                     save_img = save_img_match, save_img_path=FLAGS.output)
             print(text)
             text_out += text
 
-        if save_to_txt:
+        if FLAGS.save_to_txt:
             with open(output_txt,'w') as txtfile:
                 txtfile.write(text_out)
 

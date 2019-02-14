@@ -44,13 +44,11 @@ def load_extractor_model():
     return model, my_preprocess
 
 
-
-
 def chunks(l, n, preprocessing_function = None):
     """Yield successive n-sized chunks from l.
 
-    Modification to work with Keras: made infinite loop,
-    add preprocessing, returns np.array
+    General purpose function modified for Keras: made infinite loop,
+    add preprocessing, returns np.array instead of list
 
     Args:
       l: iterable
@@ -66,33 +64,6 @@ def chunks(l, n, preprocessing_function = None):
     while True:
         for i in range(0, len(l), n):
             yield np.array([func(el) for el in l[i:i + n]])
-
-
-def features_from_image(img_array, model, preprocess, batch_size = 100):
-    """
-    Extract features from image array given a decapitated keras model.
-    Use a generator to avoid running out of memory for large inputs.
-
-    Args:
-      img_array: (N, H, W, C) list/array of input images
-      model: keras model, outputs
-    Returns:
-      features: (N, F) array of 1D features
-    """
-
-    if len(img_array) == 0:
-        return np.array([])
-
-    steps = len(img_array)//batch_size + 1
-    img_gen = chunks(img_array, batch_size, preprocessing_function = preprocess)
-    features = model.predict_generator(img_gen, steps = steps)
-
-    # if the generator has looped past end of array, cut it down
-    features = features[:len(img_array)]
-
-    # reshape features: flatten last three dimensions to one
-    features = features.reshape(features.shape[0], np.prod(features.shape[1:]))
-    return features
 
 
 def load_features(filename):
@@ -221,7 +192,7 @@ def contents_of_bbox(img, bbox_list, expand=1.):
     Extract portions of image inside  bounding boxes list.
 
     Args:
-      img: 3D image array
+      img: (H,W,C) image array
       bbox_list: list of bounding box specifications, with first 4 elements
       specifying box corners in (xmin, ymin, xmax, ymax) format.
     Returns:

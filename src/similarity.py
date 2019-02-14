@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
-from utils import chunks, bbox_colors, draw_annotated_box
+from utils import bbox_colors, chunks, draw_annotated_box, features_from_image
 from timeit import default_timer as timer
 from PIL import Image
 
@@ -63,6 +63,7 @@ def load_brands_compute_cutoffs(input_paths, model_preproc, features, threshold 
     img_input = []
     for path in input_paths:
         img = cv2.imread(path)
+        # apppend images in RGB color ordering
         if img is not None:
             img_input.append(img[:,:,::-1])
         else:
@@ -70,7 +71,8 @@ def load_brands_compute_cutoffs(input_paths, model_preproc, features, threshold 
 
     t_read  = timer()-start
     model, my_preprocess = model_preproc
-    feat_input = features_from_image(np.array(img_input), model, my_preprocess)
+    img_input = np.array(img_input)
+    feat_input = features_from_image(img_input, model, my_preprocess)
     t_feat = timer()-start
 
     sim_cutoff, (bins, cdf_list)= similarity_cutoff(feat_input, features, threshold, timing)
@@ -149,7 +151,7 @@ def draw_matches(img_test, inputs, prediction, matches):
     Draw bounding boxes on image for logo candidates that match against user input.
 
     Args:
-      img_test: input image as 3D np.array (opencv BGR ordering)
+      img_test: input image as 3D np.array (assuming RGB ordering)
       inputs: list of annotations strings that will appear on top of each box
       prediction: logo candidates from YOLO step
       matches: array of prediction indices, prediction[matches[i]]
