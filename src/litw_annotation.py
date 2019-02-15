@@ -1,7 +1,6 @@
 import xml.etree.ElementTree as ET
 import os
 import numpy as np
-np.random.seed(0)
 
 import argparse
 
@@ -103,7 +102,11 @@ if __name__ == '__main__':
                         help='Do train/test split at class (0) or file level (1)')
     parser.add_argument('-closedset', default=False, action="store_true",
                         help='If specified, annotate logo objects class by class instead of as one class')
+    parser.add_argument('-seed', default=False, action="store_true",
+                        help='If specified, set seed = 0 for reproducible train/test split')
     args = parser.parse_args()
 
+    if args.seed: 
+        np.random.seed(0)
 
     main(args)

@@ -200,8 +200,8 @@ if __name__ == '__main__':
                                               postfix='_logo')
 
             text = match_logo(image, prediction, (model, my_preprocess), text,
-                    (feat_input, sim_cutoff, bins, cdf_list, input_labels),
-                    save_img = save_img_match, save_img_path=FLAGS.output)
+                      (feat_input, sim_cutoff, bins, cdf_list, input_labels),
+                      save_img = save_img_match, save_img_path=FLAGS.output)
             print(text)
             text_out += text
 
