@@ -11,11 +11,9 @@ In this project, I built a general-purpose logo detection API. To avoid re-train
 
 ## Repo structure
 + `build`: scripts to build environment
-+ `configs`: configuration files
 + `data`: input data
 + `notebooks`: exploratory analysis, visualization
 + `src`: source code
-+ `tests`: unit tests
 
 ## Getting Started
 
