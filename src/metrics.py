@@ -158,7 +158,7 @@ def prec_recalls_from_bboxes(bbox_list_true, bbox_list_pred, conf_thr_list = np.
         for conf_thr in reversed(conf_thr_list):
             tp, fp, fn = count_tpfpfn_from_bboxes(bbox_list_true, bbox_list_pred, conf_thr=conf_thr, iou_thr=iou_thr)
 
-            prec, rec = tp / ( tp + fp + eps), tp / ( tp + fn + eps)
+            prec, rec = (tp + eps) / ( tp + fp + eps), (tp + eps) / ( tp + fn + eps)
 
             prec_r.append(prec)
             rec_r.append(rec)
@@ -214,7 +214,7 @@ if __name__ == '__main__':
         help='path to ground truth text file in keras-yolo3 format'
     )
     parser.add_argument(
-        '--pred_file', type=str, dest='pred_file', default=os.path.join('output', 'data_pred.txt'),
+        '--pred_file', type=str, dest='pred_file', default=  'data_test_pred.txt',
         help='path to predictions text file in keras-yolo3 format'
     )
     parser.add_argument(

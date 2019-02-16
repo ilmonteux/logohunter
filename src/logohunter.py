@@ -4,12 +4,8 @@
 #
 
 import argparse
-import cv2
 from keras_yolo3.yolo import YOLO
-import matplotlib.pyplot as plt
-import numpy as np
 import os
-import sys
 from PIL import Image
 from timeit import default_timer as timer
 
@@ -50,7 +46,7 @@ if __name__ == '__main__':
 
     parser.add_argument(
         '--batch', default=False, action="store_true",
-        help='Image detection mode for each file specified in input txt'
+        help='Batch image detection mode given input txt file with image paths'
     )
 
     parser.add_argument(

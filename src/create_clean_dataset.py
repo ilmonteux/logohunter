@@ -28,7 +28,7 @@ def parse_args():
     """
     Parse input arguments
     """
-    parser = argparse.ArgumentParser(description='Test a Fast R-CNN network')
+    parser = argparse.ArgumentParser(description='Clean Logos In The Wild dataset')
     parser.add_argument('--in', dest='inpath', help='Path of the original dataset\'s data folder to be cleaned. It won\'t be modified.',
                         default=None, type=str, required=True)
     parser.add_argument('--out', dest='outpath',
@@ -39,10 +39,6 @@ def parse_args():
                     action='store_true', default=False)
     parser.add_argument('--roi', dest='roi',
                     help='Writes the rois out for each brands separately.',
-                    action='store_true', default=False)
-
-    parser.add_argument('--commonformat', dest='commonformat',
-                    help='Writes the dataset also to a common Faster R-CNN format out.',
                     action='store_true', default=False)
     args = parser.parse_args()
     return args
@@ -57,16 +53,6 @@ if __name__ == '__main__':
         shutil.rmtree(args.outpath)
     xmlpath = os.path.join(args.outpath, 'voc_format')
     shutil.copytree(args.inpath, xmlpath)
-
-    if args.commonformat:
-        commonoutpath = os.path.join(args.outpath, 'commonformat')
-        annotationspath = os.path.join(commonoutpath, 'Annotations')
-        imagespath = os.path.join(commonoutpath, 'Images')
-        imagesetspath = os.path.join(commonoutpath, 'ImageSets')
-
-        os.makedirs(annotationspath)
-        os.makedirs(imagespath)
-        os.makedirs(imagesetspath)
 
     i = 0
     unavailableCounter = 0
@@ -580,16 +566,6 @@ if __name__ == '__main__':
                 y2 = int(bndbox[3].text)
 
                 brandlist.append(brand)
-
-                if args.commonformat:
-                    with open(os.path.join(annotationspath, parent + "_" + imagename + postfix + dstext + '.bboxes.txt'), 'a') as annotfile:
-                        annotfile.write(str(x1) + ' ' + str(y1) + ' ' + str(x2) + ' ' + str(y2) + ' ' + brand + '\n')
-            if args.commonformat:
-                copy2(os.path.join(r, imagename + ext), os.path.join(imagespath, parent + '_' + imagename + postfix + dstext))
-
-    if args.commonformat:
-        with open(os.path.join(imagesetspath, 'litw' + postfix + '.txt'), 'w') as f:
-            f.write(imglist)
 
     with open(os.path.join(args.outpath, 'brands.txt'), 'w') as f:
         for brand in set(brandlist):
