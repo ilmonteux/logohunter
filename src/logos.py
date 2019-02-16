@@ -107,3 +107,36 @@ def match_logo(img_test, prediction, model_preproc, outtxt, input_features_cdf_c
                         t_draw-t_match, t_save-t_draw)
 
     return outtxt
+
+
+def detect_video(yolo, video_path, output_path=""):
+    import cv2
+    vid = cv2.VideoCapture(video_path)
+    if not vid.isOpened():
+        raise IOError("Couldn't open video")
+    video_FourCC    = cv2.VideoWriter_fourcc(*'mp4v') #int(vid.get(cv2.CAP_PROP_FOURCC))
+    video_fps       = vid.get(cv2.CAP_PROP_FPS)
+    video_size      = (int(vid.get(cv2.CAP_PROP_FRAME_WIDTH)),
+                        int(vid.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+    isOutput = True if output_path != "" else False
+    if isOutput:
+        print(output_path, video_FourCC, video_fps, video_size)
+        out = cv2.VideoWriter(output_path, video_FourCC, video_fps, video_size)
+    accum_time = 0
+    curr_fps = 0
+    fps = "FPS: ??"
+    prev_time = timer()
+    while vid.isOpened():
+        return_value, frame = vid.read()
+        if not return_value:
+            break
+        # opencv images are BGR, translate to RGB
+        frame = frame[:,:,::-1]
+        image = Image.fromarray(frame)
+        out_pred, image = yolo.detect_image(image)
+        result = np.asarray(image)
+        if isOutput:
+            out.write(result[:,:,::-1])
+    vid.release()
+    out.release()
+    yolo.close_session()
