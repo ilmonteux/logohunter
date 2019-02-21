@@ -107,7 +107,7 @@ if __name__ == '__main__':
     FLAGS = parser.parse_args()
 
     if FLAGS.test:
-        test()
+        test.test()
         exit()
 
 
