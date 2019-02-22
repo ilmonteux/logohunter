@@ -95,9 +95,9 @@ Here are the main scripts to train and run LogoHunter:
   --out OUTPATH   Path where the cleaned dataset will be copied.
   --wofl32        Generate the dataset without the classes of FlickrLogos32.
   --roi           Writes the rois out for each brands separately.
-```
- Example use:
-```
+    ```
+    Example use:
+    ```
     python create_clean_dataset.py  --in ../data/LogosInTheWild-v2/data/  --out ../data/LogosInTheWild-v2/data_cleaned/
     ```    
 
@@ -106,7 +106,7 @@ Here are the main scripts to train and run LogoHunter:
     path-to-file1.jpg xmin,ymin,xmax,ymax,class_id xmin,ymin,xmax,ymax,class_id
     path-to-file2.jpg xmin,ymin,xmax,ymax,class_id
     ```
-Arguments are:
+    Arguments are:
     ```
       -img_path IMG_PATH    path to parent directory containing images and xml
                             annotations (default:
