@@ -64,7 +64,7 @@ def test():
         outtxt = img_path
 
         ## find candidate logos in image
-        prediction, image, new_image = detect_logo(yolo, img_path, save_img = True,
+        prediction, image = detect_logo(yolo, img_path, save_img = True,
                                           save_img_path = test_dir, postfix='_logo')
 
         ## match candidate logos to input
@@ -72,7 +72,7 @@ def test():
                 outtxt, (feat_input, sim_cutoff, bins, cdf_list, input_labels),
                 save_img = save_img_match, save_img_path=test_dir, timing=True)
 
-        img_size_list.append(np.sqrt(np.prod(new_image.size)))
+        img_size_list.append(np.sqrt(np.prod(image.size)))
         candidate_len_list.append(len(prediction))
         times_list.append(times)
 
