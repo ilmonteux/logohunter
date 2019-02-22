@@ -41,8 +41,8 @@ Here are the main scripts to train and run LogoHunter:
     Example use:
 
     ```
-python logohunter.py  --image --input_images ../data/test/lexus/ --input_brands ../data/test/test_brands/test_lexus.png --output ../data/test/test_lexus/ --outtxt
-python logohunter.py  --image --input_images data_test.txt --batch  --input_brands ../data/test/test_brands/test_lexus.png --output ./  --outtxt --no_save_img
+    python logohunter.py  --image --input_images ../data/test/lexus/ --input_brands ../data/test/test_brands/test_lexus.png --output ../data/test/test_lexus/ --outtxt
+    python logohunter.py  --image --input_images data_test.txt --batch  --input_brands ../data/test/test_brands/test_lexus.png --output ./  --outtxt --no_save_img
    ```
 
 + `similarity.py`: functions to compute cosine similarity between input images with predicted bounding boxes, and input logos, as well as similarity cutoffs to decide when two images are a match, and plotting results.
