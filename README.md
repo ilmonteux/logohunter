@@ -52,17 +52,18 @@ cd src/
 python logohunter.py --test
 ```
 
-Typical ways to run the program involve specifying one input brand and a folder of sample images (this commands will not work out of the box as the images are copyrighted and I have no right to distribute them):
+Typical ways to run the program involve specifying one input brand and a folder of sample images:
 ```
-python logohunter.py  --image --input_brands ../data/test/test_brands/test_lexus.png --input_images ../data/test/lexus/  --output ../data/test/test_lexus/ --outtxt
+python logohunter.py  --image --input_brands ../data/test/test_brands/test_lexus.png --input_images ../data/test/lexus/  --output ../data/test/test_lexus --outtxt
 
 python logohunter.py  --image --input_brands ../data/test/test_brands/test_golden_state.jpg  --input_images ../data/test/goldenstate/  --output ../data/test/test_gs --outtxt
 
 python logohunter.py  --image --input_images data_test.txt --batch  --input_brands ../data/test/test_brands/test_lexus.png --output ./  --outtxt --no_save_img
 ```
 
-In the first two cases, we test a folder of images for a single brand ([data/test/test_brands/test_lexus.png](lexus logo) or [data/test/test_brands/test_golden_state.jpg](golden state logo)). The input images were downloaded from Google Images for test purposes.
-In the third example, we test a text file containing links to 2590 input images from the LogosInTheWild dataset against a single brand, skipping saving the output images.
+In the first two use cases, we test a folder of images for a single brand ([lexus logo](data/test/test_brands/test_lexus.png) or [golden state logo](data/test/test_brands/test_golden_state.jpg)). The input images were downloaded from Google Images for test purposes. Running LogoHunter saves images with bounding box annotations in the folder specified (`test_lexus`, `test_gs`). Because each of these images contains the logo we are looking for, this is a way to estimate the false negative rate (and the recall).
+
+In the third example, we test a text file containing paths to 2590 input images from the LogosInTheWild dataset against a single brand, without saving the annotated images. Because the brand is new to the dataset, this is a way to estimate the false positive rate (and the precision). (**Note:** this will not run out of the box, as you will need to separately download the LogosInTheWild dataset - follow the instructions below to download the dataset).
 
 
 

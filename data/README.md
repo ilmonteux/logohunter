@@ -1,13 +1,15 @@
 # Dataset
 
-## test
+## Testing dataset
 This directory contains images to test your installation and run the inference on a sample. The structure is the following:
 ```
 data/
+├── goldenstate/
+├── lexus/
 ├── sample_in/  
 └── test_brands/
 ```
-`sample_in` contains a sample of 20 images with logos in them, while `test_brands` contains a selection of 17 brands, most of which are new to the model (not being part of the Logos In The Wild Dataset).
+The `goldenstate` and `lexus` folders contain a sample of images downloaded from Google Images (and are respective property of the companies, used here only for testing purposes), namely 68 and 54 images. `sample_in` contains a sample of 20 images with various logos in them, while `test_brands` contains a selection of 17 brands, most of which are new to the model (not part of the Logos In The Wild Dataset).
 
 ## Logos In The Wild Dataset: first-time setup
 
