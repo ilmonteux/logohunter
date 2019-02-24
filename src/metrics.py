@@ -100,6 +100,9 @@ def count_tpfpfn_from_bboxes(bbox_list_true, bbox_list_pred, conf_thr=0.5, iou_t
                       where score is the prediction confidence.
     Returns:
       tp, fp, fn: counts for true positives, false positives, false negatives.
+      match_dict: map of matches, from true boxes to matching predicted boxes.
+        Nested dictionary keys are image index, and true box index mapped to predicted
+        box index.
     """
     tp, fp, fn = 0, 0, 0
     # iterate over different input images
@@ -134,7 +137,7 @@ def count_tpfpfn_from_bboxes(bbox_list_true, bbox_list_pred, conf_thr=0.5, iou_t
         # after going through all predictions, count any unmatched true objects
         fn += len(bbox_list_true[i]) - len(match_dict[i])
 
-    return tp, fp, fn
+    return (tp, fp, fn), match_dict
 
 def prec_recalls_from_bboxes(bbox_list_true, bbox_list_pred, conf_thr_list = np.arange(0,1.01,0.05), iou_thr_list = [0.5]):
     """
@@ -156,7 +159,7 @@ def prec_recalls_from_bboxes(bbox_list_true, bbox_list_pred, conf_thr_list = np.
     for iou_thr in iou_thr_list:
         prec_r, rec_r = [], []
         for conf_thr in reversed(conf_thr_list):
-            tp, fp, fn = count_tpfpfn_from_bboxes(bbox_list_true, bbox_list_pred, conf_thr=conf_thr, iou_thr=iou_thr)
+            (tp, fp, fn), _ = count_tpfpfn_from_bboxes(bbox_list_true, bbox_list_pred, conf_thr=conf_thr, iou_thr=iou_thr)
 
             prec, rec = (tp + eps) / ( tp + fp + eps), (tp + eps) / ( tp + fn + eps)
 
