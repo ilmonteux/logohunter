@@ -11,15 +11,14 @@ from timeit import default_timer as timer
 
 from logos import detect_logo, match_logo
 from similarity import load_brands_compute_cutoffs
-from utils import load_extractor_model, load_features, parse_input
+from utils import load_extractor_model, load_features, model_flavor_from_name, parse_input
 import utils
 
-input_shape = utils.input_shape
 sim_threshold = 0.95
 output_txt = 'out.txt'
 
 
-def test():
+def test(filename):
     """
     Test function: runs pipeline for a small set of input images and input
     brands.
@@ -37,11 +36,14 @@ def test():
     test_dir = os.path.join(os.path.dirname(__file__), os.path.pardir, 'data/test')
 
     ## load pre-processed features database
-    filename = 'inception_logo_features.hdf5'
-    brand_map, features = load_features(filename)
+    # filename = 'inception_logo_features_200_trunc1.hdf5'
+    features, brand_map, input_shape = load_features(filename)
+    # get Inception/VGG16 model and flavor from filename
+    model_name, flavor = model_flavor_from_name(filename)
 
     ## load inception model
-    model, my_preprocess = load_extractor_model()
+    model, preprocess_input, input_shape = load_extractor_model(model_name, flavor)
+    my_preprocess = lambda x: preprocess_input(utils.pad_image(x, input_shape))
 
     ## load sample images of logos to test against
     input_paths = ['test_batman.jpg', 'test_robin.png', 'test_lexus.png', 'test_champions.jpg',
@@ -92,4 +94,4 @@ def test():
 
 
 if __name__ == '__main__':
-    test()
+    test(filename)

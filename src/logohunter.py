@@ -11,11 +11,10 @@ from timeit import default_timer as timer
 
 from logos import detect_logo, match_logo
 from similarity import load_brands_compute_cutoffs
-from utils import load_extractor_model, load_features, parse_input
+from utils import load_extractor_model, load_features, model_flavor_from_name, parse_input
 import test
 import utils
 
-input_shape = utils.input_shape
 sim_threshold = 0.95
 output_txt = 'out.txt'
 
@@ -95,8 +94,8 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        '--features', type=str, dest='features', default = 'inception_logo_features.hdf5',
-        help='path to LogosInTheWild logos features extracted by InceptionV3'
+        '--features', type=str, dest='features', default = 'vgg16_logo_features_128.hdf5', #inception_logo_features_200_trunc1
+        help='path to LogosInTheWild logos features extracted by InceptionV3/VGG16'
     )
 
     parser.add_argument(
@@ -107,7 +106,7 @@ if __name__ == '__main__':
     FLAGS = parser.parse_args()
 
     if FLAGS.test:
-        test.test()
+        test.test(FLAGS.features)
         exit()
 
 
@@ -176,11 +175,14 @@ if __name__ == '__main__':
         # labels to draw on images - could also be read from filename
         input_labels = [ os.path.basename(s).split('test_')[-1].split('.')[0] for s in input_paths]
 
-        ## load pre-processed features database
-        brand_map, features = load_features(FLAGS.features)
+        ## load pre-processed LITW features database
+        features, brand_map, input_shape = load_features(FLAGS.features)
+        # get Inception/VGG16 model and flavor from filename
+        model_name, flavor = model_flavor_from_name(FLAGS.features)
 
         ## load inception model
-        model, my_preprocess = load_extractor_model()
+        model, preprocess_input, input_shape = load_extractor_model(model_name, flavor)
+        my_preprocess = lambda x: preprocess_input(utils.pad_image(x, input_shape))
 
         # compute cosine similarity between input brand images and all LogosInTheWild logos
         ( img_input, feat_input, sim_cutoff, (bins, cdf_list)

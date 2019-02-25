@@ -1,18 +1,17 @@
+import colorsys
 import cv2
+import h5py
+from keras import Model
 import numpy as np
 import os
 from matplotlib.colors import rgb_to_hsv, hsv_to_rgb
-import h5py
-import colorsys
 from PIL import Image, ImageFont, ImageDraw
-
 from timeit import default_timer as timer
 
 import readline
 readline.parse_and_bind("tab: complete")
 
 
-input_shape = (299,299,3)
 min_logo_size = (10,10)
 
 def parse_input():
@@ -35,13 +34,65 @@ def parse_input():
     return out
 
 
-def load_extractor_model():
-    from keras.applications.inception_v3 import InceptionV3
-    from keras.applications.inception_v3 import preprocess_input
-    model = InceptionV3(weights='imagenet', include_top=False)
+def load_extractor_model(model_name='InceptionV3', flavor=1):
+    """Load variant of InceptionV3 or VGG16 model specified.
 
-    my_preprocess = lambda x: preprocess_input(pad_image(x, input_shape))
-    return model, my_preprocess
+    Args:
+      model_name: string, either InceptionV3 or VGG16
+      flavor: int specifying the model variant and input_shape.
+        For InceptionV3, the map is {0: default, 1: 200*200, truncate last Inception block,
+        2: 200*200, truncate last 2 blocks, 3: 200*200, truncate last 3 blocks, 4: 200*200}
+        For VGG16, it only changes the input size, {0: 224 (default), 1: 128, 2: 96}.
+"""
+    start = timer()
+    if model_name == 'InceptionV3':
+        from keras.applications.inception_v3 import InceptionV3
+        from keras.applications.inception_v3 import preprocess_input
+        model = InceptionV3(weights='imagenet', include_top=False)
+
+        trunc_layer = [-1, 279, 248, 228, -1]
+        i_layer = flavor
+        model_out = Model(inputs=model.inputs, outputs=model.layers[trunc_layer[i_layer]].output)
+        input_shape = (299,299,3) if flavor==0 else (200,200,3)
+
+    elif model_name == 'VGG16':
+        from keras.applications.vgg16 import VGG16
+        from keras.applications.vgg16 import preprocess_input
+        model_out = VGG16(weights='imagenet', include_top=False)
+        input_length = [224,128,96][flavor]
+        input_shape = (input_length,input_length,3)
+
+    end = timer()
+    print('Loaded {} feature extractor in {:.2f}sec'.format(model_name, end-start))
+    return model_out, preprocess_input, input_shape
+
+
+def model_flavor_from_name(path):
+    """ Return model name (InceptionV3 or VGG16) and model variant from HDF5 filename.
+    """
+    filename = os.path.basename(path)
+    if filename.startswith('inception'):
+        model_name = 'InceptionV3'
+        if filename == 'inception_logo_features.hdf5':
+            flavor = 0
+        elif filename == 'inception_logo_features_200_trunc1.hdf5':
+            flavor = 1
+        elif filename == 'inception_logo_features_200_trunc2.hdf5':
+            flavor = 2
+        elif filename == 'inception_logo_features_200_trunc3.hdf5':
+            flavor = 3
+        elif filename == 'inception_logo_features_200.hdf5':
+            flavor = 4
+        else:
+            raise Exception('Model not recognized: {}'.format(path))
+    elif filename.startswith('vgg16'):
+        model_name = 'VGG16'
+        length = int(filename.split('_')[3].split('.')[0]) #vgg16_logo_features_NNN.hdf5
+        flavor = [224,128,96].index(length)
+    else:
+        raise Exception('Model not recognized as InceptionV3 or VGG16 from filename: {}'.format(path))
+
+    return model_name, flavor
 
 
 def chunks(l, n, preprocessing_function = None):
@@ -75,14 +126,15 @@ def load_features(filename):
     # get database features
     with  h5py.File(filename, 'r') as hf:
         brand_map = list(hf.get('brand_map'))
+        input_shape = list(hf.get('input_shape'))
         features = hf.get('features')
         features = np.array(features)
     end = timer()
     print('Loaded {} features from {} in {:.2f}sec'.format(features.shape, filename, end-start))
 
-    return brand_map, features
+    return features, brand_map, input_shape
 
-def save_features(filename, features, brand_map):
+def save_features(filename, features, brand_map, input_shape):
     """
     Save features to compressed HDF5 file for later use
     """
@@ -94,6 +146,7 @@ def save_features(filename, features, brand_map):
     with h5py.File(filename, 'w') as hf:
         hf.create_dataset('features', data = features, compression='lzf')
         hf.create_dataset('brand_map', data = brand_map)
+        hf.create_dataset('input_shape', data = input_shape)
 
     end = timer()
     print('done in {:.2f}sec'.format(end-start))
@@ -273,7 +326,7 @@ def draw_annotated_box(image, box_list_list, label_list, color_list):
 
 
 def main():
-    print('FILL ME')
+    print('Nothing to do here...')
 
 
 

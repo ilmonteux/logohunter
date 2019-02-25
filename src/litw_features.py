@@ -1,16 +1,12 @@
-# import matplotlib.pyplot as plt
 import cv2
-import h5py
-import matplotlib as mpl
-import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
+from keras import Model
 
 import metrics
 import utils
 
 def extract_litw_features(filename, model, my_preprocess):
     """
-    Given Logos in The Wild dataset, extract all logos from images and exract
+    Given Logos in The Wild dataset, extract all logos from images and extract
     features by applying truncated InceptionV3 model.
     """
     img_list_lbl, bbox_list_lbl = metrics.read_txt_file(filename)
@@ -35,10 +31,39 @@ def extract_litw_features(filename, model, my_preprocess):
     return features, all_logos, brand_map
 
 if __name__ == '__main__':
-    model, my_preprocess = utils.load_extractor_model()
 
+    model, preprocess_input, input_shape = utils.load_extractor_model('InceptionV3', flavor=0)
+    my_preprocess = lambda x: preprocess_input(utils.pad_image(x, input_shape))
+
+    print('Extracting features from LogosInTheWild database (train set) - this will take a while (~5 minutes)')
     features, all_logos, brand_map = extract_litw_features('data_all_train.txt', model, my_preprocess)
 
     print('Processed {} logos, transformed into feature vectors'.format(len(features)))
 
-    utils.save_features('inception_logo_features.hdf5', features, brand_map)
+    # save inception features at default size 299*299
+    utils.save_features('inception_logo_features.hdf5', features, brand_map, input_shape)
+
+    # save features for Inception with smaller input: 200 instead of 299 - last layer is 4*4 instead of 8*8
+    # Extract features at last layer as well as after last 3 inception blocks (mixed9,8,7)
+    input_shape = (200,200,3)
+    new_preprocess = lambda x: preprocess_input(utils.pad_image(x, input_shape))
+
+    trunc_layer = [-1, 279, 248, 228]
+    for i_layer in range(4):
+        model_out = Model(inputs=model.inputs, outputs=model.layers[trunc_layer[i_layer]].output)
+        features = utils.features_from_image(all_logos, model_out, new_preprocess)
+
+        extra = '_trunc{}'.format(i_layer) if i_layer > 0 else ''
+        utils.save_features('inception_logo_features_200{}.hdf5'.format(extra), features, brand_map, input_shape)
+
+
+    # save features for VGG16 at 3 different input scales
+    from keras.applications.vgg16 import VGG16
+    from keras.applications.vgg16 import preprocess_input
+    model = VGG16(weights='imagenet', include_top=False)
+
+    for n in [224,128,64]:
+        input_shape = (n,n,3)
+        new_preprocess = lambda x: preprocess_input(utils.pad_image(x, input_shape))
+        features = utils.features_from_image(all_logos, model, new_preprocess)
+        utils.save_features('vgg16_logo_features_{}.hdf5'.format(n), features, brand_map, input_shape)
