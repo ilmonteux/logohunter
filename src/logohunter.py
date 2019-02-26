@@ -44,11 +44,6 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        '--batch', default=False, action="store_true",
-        help='Batch image detection mode given input txt file with image paths'
-    )
-
-    parser.add_argument(
         '--test', default=False, action="store_true",
         help='Test routine: run on few images in /data/test/ directory'
     )
@@ -93,8 +88,8 @@ if __name__ == '__main__':
         help='YOLO object confidence threshold above which to show predictions'
     )
 
-    parser.add_argument(
-        '--features', type=str, dest='features', default = 'vgg16_logo_features_128.hdf5', #inception_logo_features_200_trunc1
+    parser.add_argument(# good default choices: inception_logo_features_200_trunc2, vgg16_logo_features_128
+        '--features', type=str, dest='features', default = 'inception_logo_features_200_trunc2.hdf5',
         help='path to LogosInTheWild logos features extracted by InceptionV3/VGG16'
     )
 
@@ -124,7 +119,13 @@ if __name__ == '__main__':
             FLAGS.input_brands = parse_input()
 
         elif os.path.isfile(FLAGS.input_brands):
-            FLAGS.input_brands = [ os.path.abspath(FLAGS.input_brands)  ]
+            print("Loading input brands from text file: reading "+FLAGS.input_brands)
+            if FLAGS.input_brands.endswith('.txt'):
+                with open(FLAGS.input_brands, 'r') as file:
+                    FLAGS.input_brands = [os.path.abspath(f) for f in file.read().splitlines()]
+
+            else:
+                FLAGS.input_brands = [ os.path.abspath(FLAGS.input_brands)  ]
 
         elif os.path.isdir(FLAGS.input_brands):
             FLAGS.input_brands = [ os.path.abspath(os.path.join(FLAGS.input_brands, f)) for f in os.listdir(FLAGS.input_brands) if f.endswith(('.jpg', '.png')) ]
@@ -132,7 +133,7 @@ if __name__ == '__main__':
             exit('Error: path not found:{}'.format(FLAGS.input_brands))
 
 
-        if FLAGS.batch and FLAGS.input_images.endswith('.txt'):
+        if FLAGS.input_images.endswith('.txt'):
             print("Batch image detection mode: reading "+FLAGS.input_images)
             output_txt = FLAGS.input_images.split('.txt')[0]+'_pred.txt'
             FLAGS.save_to_txt = True
@@ -175,10 +176,10 @@ if __name__ == '__main__':
         # labels to draw on images - could also be read from filename
         input_labels = [ os.path.basename(s).split('test_')[-1].split('.')[0] for s in input_paths]
 
-        ## load pre-processed LITW features database
-        features, brand_map, input_shape = load_features(FLAGS.features)
         # get Inception/VGG16 model and flavor from filename
         model_name, flavor = model_flavor_from_name(FLAGS.features)
+        ## load pre-processed LITW features database
+        features, brand_map, input_shape = load_features(FLAGS.features)
 
         ## load inception model
         model, preprocess_input, input_shape = load_extractor_model(model_name, flavor)

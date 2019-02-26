@@ -38,11 +38,6 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        '--batch', default=False, action="store_true",
-        help='Image detection mode for each file specified in input txt'
-    )
-
-    parser.add_argument(
         "--output", type=str, default="../data/test/",
         help = "output path: either directory for single/batch image, or filename for video"
     )
@@ -98,9 +93,9 @@ if __name__ == '__main__':
     # image detection mode
     if FLAGS.image:
 
-        if FLAGS.batch and FLAGS.input_images.endswith('.txt'):
+        if FLAGS.input_images.endswith('.txt'):
             print("Batch image detection mode: reading "+FLAGS.input_images)
-            output_txt = FLAGS.input_images.split('.txt')[0]+'_pred.txt'
+            output_txt = FLAGS.input_images.split('.txt')[0]+'_pred_logo.txt'
             FLAGS.save_to_txt = True
             with open(FLAGS.input_images, 'r') as file:
                 file_list = [line.split(' ')[0] for line in file.read().splitlines()]

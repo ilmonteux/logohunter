@@ -4,15 +4,20 @@ from keras import Model
 import metrics
 import utils
 
-def extract_litw_features(filename, model, my_preprocess):
+def extract_litw_logos(filename):
     """
-    Given Logos in The Wild dataset, extract all logos from images and extract
-    features by applying truncated InceptionV3 model.
+    Given Logos in The Wild dataset, extract all logos from images.
+
+    Args:
+      filename: text file, where each line defines the logos in the image
+        specified. The format is:
+          path-to-file1.jpg xmin,ymin,xmax,ymax,class_id[,confidence] xmin,ymin,xmax,ymax,class_id[,confidence]
+          path-to-file2.jpg xmin,ymin,xmax,ymax,class_id[,confidence]
+    Returns:
+      all_logos: list of np.arrays for each logo
+      brand_map: brand id (in range 0,...,n_brands) for each extracted logo
     """
     img_list_lbl, bbox_list_lbl = metrics.read_txt_file(filename)
-
-    with open('brands.txt') as f:
-        all_classes = [ s.strip('\n') for s in f.readlines() ]
 
     all_logos = []
     brand_map = []
@@ -25,6 +30,27 @@ def extract_litw_features(filename, model, my_preprocess):
                 continue
             all_logos.append(im[bb[1]:bb[3], bb[0]:bb[2]])
             brand_map.append(bb[-1])
+
+    return all_logos, brand_map
+
+def extract_litw_features(filename, model, my_preprocess):
+    """
+    Given Logos in The Wild dataset, extract all logos from images and extract
+    features by applying truncated model (flattening W * H * n_filters features
+    from last layer).
+
+    Args:
+      filename: text file, where each line defines the logos in the image
+        specified. The format is:
+          path-to-file1.jpg xmin,ymin,xmax,ymax,class_id[,confidence] xmin,ymin,xmax,ymax,class_id[,confidence]
+          path-to-file2.jpg xmin,ymin,xmax,ymax,class_id[,confidence]
+    Returns:
+      features: (n_logos, n_features)-shaped np.array of features
+      all_logos: list of np.arrays for each logo
+      brand_map: brand id (in range 0,...,n_brands) for each extracted logo
+    """
+
+    all_logos, brand_map = extract_litw_logos(filename)
 
     features = utils.features_from_image(all_logos, model, my_preprocess)
 

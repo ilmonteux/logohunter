@@ -102,9 +102,8 @@ def similar_matches(feat_input, features_cand, cutoff_list, bins, cdf_list):
       features_cand: (n_candidates, N) array of features for candidates
 
     Returns:
-      matches: (n_input, ) list of indices (each running from 0 to n_candidates)
-        where a match occurred for each input.
-      cos_sim: (n_input, n_candidates) cosine similarity matrix between inputs and candidates
+      matches: dictionary mapping each logo match to its input brand and its CDF value.
+      cos_sim: (n_input, n_candidates) cosine similarity matrix between inputs and candidates.
     """
 
     if len(features_cand)==0:

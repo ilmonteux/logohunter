@@ -11,7 +11,6 @@ from timeit import default_timer as timer
 import readline
 readline.parse_and_bind("tab: complete")
 
-
 min_logo_size = (10,10)
 
 def parse_input():
@@ -42,7 +41,7 @@ def load_extractor_model(model_name='InceptionV3', flavor=1):
       flavor: int specifying the model variant and input_shape.
         For InceptionV3, the map is {0: default, 1: 200*200, truncate last Inception block,
         2: 200*200, truncate last 2 blocks, 3: 200*200, truncate last 3 blocks, 4: 200*200}
-        For VGG16, it only changes the input size, {0: 224 (default), 1: 128, 2: 96}.
+        For VGG16, it only changes the input size, {0: 224 (default), 1: 128, 2: 64}.
 """
     start = timer()
     if model_name == 'InceptionV3':
@@ -59,7 +58,7 @@ def load_extractor_model(model_name='InceptionV3', flavor=1):
         from keras.applications.vgg16 import VGG16
         from keras.applications.vgg16 import preprocess_input
         model_out = VGG16(weights='imagenet', include_top=False)
-        input_length = [224,128,96][flavor]
+        input_length = [224,128,64][flavor]
         input_shape = (input_length,input_length,3)
 
     end = timer()
@@ -84,13 +83,17 @@ def model_flavor_from_name(path):
         elif filename == 'inception_logo_features_200.hdf5':
             flavor = 4
         else:
-            raise Exception('Model not recognized: {}'.format(path))
+            raise Exception(f'Model not recognized: {path}')
     elif filename.startswith('vgg16'):
         model_name = 'VGG16'
         length = int(filename.split('_')[3].split('.')[0]) #vgg16_logo_features_NNN.hdf5
-        flavor = [224,128,96].index(length)
+        flavor = [224,128,64].index(length)
     else:
-        raise Exception('Model not recognized as InceptionV3 or VGG16 from filename: {}'.format(path))
+        raise Exception(f'Model not recognized as InceptionV3 or VGG16 from filename: {path}')
+
+    if not os.path.exists(path):
+        print(f'Features not found on local disk! Downloading from AWS S3 bucket, logohunters3.s3-us-west-2.amazonaws.com/{filename} \n')
+        os.system(f'wget  logohunters3.s3-us-west-2.amazonaws.com/{filename}')
 
     return model_name, flavor
 
@@ -250,10 +253,12 @@ def contents_of_bbox(img, bbox_list, expand=1.):
       specifying box corners in (xmin, ymin, xmax, ymax) format.
     Returns:
       candidates: list of 3D image arrays
+      i_candidates_too_small: list of indices of small candidates dropped
     """
 
     candidates =[]
-    for xmin, ymin, xmax, ymax, *_ in bbox_list:
+    i_candidates_too_small = []
+    for i, (xmin, ymin, xmax, ymax, *_) in enumerate(bbox_list):
 
         # for very low confidence sometimes logos found outside of the image
         if ymin > img.shape[0] or xmin > img.shape[1]:
@@ -265,8 +270,10 @@ def contents_of_bbox(img, bbox_list, expand=1.):
         # do not even consider tiny logos
         if xmax-xmin > min_logo_size[1] and ymax-ymin > min_logo_size[0]:
             candidates.append(img[ymin:ymax, xmin:xmax])
+        else:
+            i_candidates_too_small.append(i)
 
-    return candidates
+    return candidates, i_candidates_too_small
 
 
 def draw_annotated_box(image, box_list_list, label_list, color_list):
@@ -298,8 +305,9 @@ def draw_annotated_box(image, box_list_list, label_list, color_list):
                 continue
 
             # if score is also passed, append to label
+            thelabel = '{}'.format(label)
             if len(box)>4:
-                thelabel = '{} {:.2f}'.format(label, box[-1])
+                thelabel += ' {:.2f}'.format(box[-1])
             label_size = draw.textsize(thelabel, font)
 
             xmin, ymin, xmax, ymax = box[:4]

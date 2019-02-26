@@ -77,7 +77,9 @@ def match_logo(img_test, prediction, model_preproc, outtxt, input_features_cdf_c
 
     # img_test = cv2.imread(img_path) # could be removed by passing previous PIL image
     t_read = timer()-start
-    candidates = contents_of_bbox(img_test, prediction)
+    candidates, i_candidates_too_small = contents_of_bbox(img_test, prediction)
+    # filter predicted bboxes to discard small logos
+    prediction = [ pred for i, pred in enumerate(prediction) if i not in i_candidates_too_small]
     t_box = timer()-start
     features_cand = features_from_image(candidates, model, my_preprocess)
     t_feat = timer()-start

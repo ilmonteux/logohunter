@@ -26,7 +26,7 @@ def test(filename):
     yolo = YOLO(**{"model_path": 'keras_yolo3/yolo_weights_logos.h5',
                 "anchors_path": 'keras_yolo3/model_data/yolo_anchors.txt',
                 "classes_path": 'data_classes.txt',
-                "score" : 0.1,
+                "score" : 0.05,
                 "gpu_num" : 1,
                 "model_image_size" : (416, 416),
                 }
@@ -35,11 +35,10 @@ def test(filename):
 
     test_dir = os.path.join(os.path.dirname(__file__), os.path.pardir, 'data/test')
 
-    ## load pre-processed features database
-    # filename = 'inception_logo_features_200_trunc1.hdf5'
-    features, brand_map, input_shape = load_features(filename)
     # get Inception/VGG16 model and flavor from filename
     model_name, flavor = model_flavor_from_name(filename)
+    ## load pre-processed features database
+    features, brand_map, input_shape = load_features(filename)
 
     ## load inception model
     model, preprocess_input, input_shape = load_extractor_model(model_name, flavor)
@@ -47,7 +46,7 @@ def test(filename):
 
     ## load sample images of logos to test against
     input_paths = ['test_batman.jpg', 'test_robin.png', 'test_lexus.png', 'test_champions.jpg',
-                   'test_duff.jpg', 'test_underarmour.jpg', 'test_mustang.png', 'test_golden_state.jpg']
+                   'test_duff.jpg', 'test_underarmour.jpg', 'test_golden_state.jpg']
     input_labels = [ s.split('test_')[-1].split('.')[0] for s in input_paths]
     input_paths = [os.path.join(test_dir, 'test_brands/', p) for p in input_paths]
 
@@ -88,10 +87,11 @@ def test(filename):
         for i in range(len(times_list[0])):
             axes[iax].scatter([candidate_len_list, img_size_list][iax], np.array(times_list)[:,i])
 
-        axes[iax].legend(['read img','get box','get features','match','draw'])
+        axes[iax].legend(['read img','get box','get features','match','draw','save'])
         axes[iax].set(xlabel=['number of candidates', 'image size'][iax], ylabel='Time [sec]')
     plt.savefig(os.path.join(test_dir, 'timing_test.png'))
 
 
 if __name__ == '__main__':
+    filename = 'inception_logo_features_200_trunc2.hdf5'
     test(filename)
