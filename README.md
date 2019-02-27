@@ -60,12 +60,12 @@ python logohunter.py  --image --input_brands ../data/test/test_brands/test_lexus
                               --input_images ../data/test/lexus/ \
                               --output ../data/test/test_lexus --outtxt
 
-python logohunter.py  --image --input_brands ../data/test/test_brands/test_golden_state.jpg  
-                              --input_images ../data/test/goldenstate/  
+python logohunter.py  --image --input_brands ../data/test/test_brands/test_golden_state.jpg  \
+                              --input_images ../data/test/goldenstate/  \
                               --output ../data/test/test_gs --outtxt
 
-python logohunter.py  --image --input_images data_test.txt  
-                              --input_brands ../data/test/test_brands/test_lexus.png
+python logohunter.py  --image --input_images data_test.txt  \
+                              --input_brands ../data/test/test_brands/test_lexus.png  \
                               --outtxt --no_save_img
 ```
 
