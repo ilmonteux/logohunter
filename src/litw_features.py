@@ -4,7 +4,7 @@ from keras import Model
 import metrics
 import utils
 
-def extract_litw_logos(filename):
+def extract_litw_logos(filename, new_path=''):
     """
     Given Logos in The Wild dataset, extract all logos from images.
 
@@ -13,11 +13,16 @@ def extract_litw_logos(filename):
         specified. The format is:
           path-to-file1.jpg xmin,ymin,xmax,ymax,class_id[,confidence] xmin,ymin,xmax,ymax,class_id[,confidence]
           path-to-file2.jpg xmin,ymin,xmax,ymax,class_id[,confidence]
+      new_path: replace /home/ubuntu/logohunter in each path (used if text file
+        was created on machine with different directory structure)
     Returns:
       all_logos: list of np.arrays for each logo
       brand_map: brand id (in range 0,...,n_brands) for each extracted logo
     """
     img_list_lbl, bbox_list_lbl = metrics.read_txt_file(filename)
+
+    if new_path != '':
+        img_list_lbl = [ path.replace('/home/ubuntu/logohunter', new_path) for path in img_list_lbl]
 
     all_logos = []
     brand_map = []
