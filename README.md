@@ -36,6 +36,15 @@ conda env create -f environment.yml
 source activate logohunter
 ```
 
+The `environment.yml` file was built on a AWS ubuntu machine: if the commands above don't work (e.g. it failed on my MacBook Air), the environment can be simply built with the folllowing:
+```
+conda create -n logohunter python=3.6
+conda activate logohunter
+conda install matplotlib keras=2.2.4 pillow scikit-learn
+conda install tensorflow-gpu
+conda install opencv=3.4.4
+```
+
 #### Build Environment
 
 To hit the ground running, download the pre-trained YOLOv3 model weights (235MB) and the LogosInTheWild features extracted from a pre-trained general-purpose classifier network. Two variants for the feature extractor were tried with similar results: an InceptionV3 network (156MB) and a simpler VGG16 network (26MB), so we download them both from an AWS S3 bucket (additional choices are available at run-time and will download the necessary weights if not present):
