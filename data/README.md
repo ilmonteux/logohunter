@@ -77,7 +77,7 @@ To download the images and clean up the dataset run the following:
 ```
 cd src/
 # download images from their respective URLs
-python fetch_LogosInTheWild.py  --path ../data/LogosInTheWild-v2/
+python fetch_LogosInTheWild.py  --dir_litw ../data/LogosInTheWild-v2/data
 # clean dataset and generate cutouts of each annotated brand
 python create_clean_dataset.py  --in ../data/LogosInTheWild-v2/data/ --out ../data/LogosInTheWild-v2/data_cleaned --roi
 # read XML annotations and transfer to a text file in the keras-yolo3 format
